@@ -1,3 +1,5 @@
+// const { data } = require("jquery");
+
 var firebaseConfig = {
     apiKey: "AIzaSyDOne-swdHmSrAvJOxeCMGrpeDNJQ1Di4A",
     authDomain: "mutamimon-c1e68.firebaseapp.com",
@@ -13,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 let images = []
-
+let thePhoto ;
 
 
 var messagesRef = firebase.database()
@@ -23,29 +25,32 @@ var messagesRef = firebase.database()
 //   .addEventListener('submit', submitForm);
 
 function submitForm() {
-    alert(
-        "hena"
-    );
-    // e.preventDefault();
-
-    // Get values
     var name = getInputVal('name');
     var category = getInputVal('category');
+    var current = getInputVal('categoryProject');
+    let curr ;
+    let details = [];
+    if(current == "true")
+            curr = true;
+         else curr = false;
+    if(document.getElementById("member").value > 0){
+            for(let i =0; i<document.getElementById("member").value ; i++){
+                let id = '_' + Math.random().toString(36).substr(2, 9);
+                let obj = {
+                    id : id,
+                    text : document.getElementById(i).value
+                }
+                details.push(obj)
+            }
+    };    
+    
     var desc = getInputVal('desc'); 
     var price = getInputVal('price'); 
-    var col1 = getInputVal ('col1')
-    var col2 = getInputVal ('col2')
-    var col3 = getInputVal ('col3')
-    var col4 = getInputVal ('col4')
-    var col5 = getInputVal ('col5')
-    var col6 = getInputVal ('col6')
-
-
-    // alert(name);
-    // var photo = getInputVal('Project-photo');
-
-    saveMessage(name, category, images, desc ,price ,col1 , col2 , col3 , col4 , col5 ,col6);
-    // document.getElementById('contactForm').reset();
+    var latitude = getInputVal ('latitude');
+    var longitude = getInputVal ('longitude');
+    let id = '_' + Math.random().toString(36).substr(2, 9);
+    alert(id)
+    saveMessage(id, name, category, images, desc ,price ,curr, latitude ,longitude ,details,thePhoto);
 }
 
 // Function to get get form values
@@ -54,21 +59,21 @@ function getInputVal(id) {
 }
 
 // Save message to firebase
-function saveMessage(name, category, images, desc ,price ,col1 , col2 , col3 , col4 , col5 ,col6) {
+function saveMessage(id,name, category, images, desc ,price ,curr ,latitude , longitude, details,thePhoto) {
     alert(name)
     var newMessageRef = messagesRef.push();
     newMessageRef.set({
+        id:id,
+        curr : curr,
         name: name,
         category: category,
         photo: images,
         desc: desc ,
         price : price , 
-        col1 : col1 ,
-        col2 : col2 ,
-        col3 : col3 ,
-        col4 : col4 ,
-        col5 : col5 ,
-        col6 : col6 ,
+        latitude : latitude,
+        longitude :longitude,
+        details: details,
+        thePhoto : thePhoto
     });
 }
 
@@ -91,7 +96,7 @@ function uploadimage() {
         thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             //getting url of image
             //  document.getElementById("url").value=downloadURL;
-            images.push(downloadURL);
+           thePhoto = downloadURL;
             alert(downloadURL);
             //  saveMessage(downloadURL);
         });
@@ -104,31 +109,36 @@ function uploadimage() {
 }
 
 
-// function uploadPhotos() {
-//     var type = "2";
-//     var storage = firebase.storage();
-//     var file = document.getElementById("photos").files[0];
-//     var storageref = storage.ref();
-//     var thisref = storageref.child(type).child(file.name).put(file);
-//     thisref.on('state_changed', function (snapshot) {
+function uploadPhotos() {
+    var type = "2";
+    var storage = firebase.storage();
+    var file = document.getElementById("photos").files[0];
+    var storageref = storage.ref();
+    var thisref = storageref.child(type).child(file.name).put(file);
+    thisref.on('state_changed', function (snapshot) {
 
 
-//     }, function (error) {
+    }, function (error) {
 
-//     }, function () {
-//         // Uploaded completed successfully, now we can get the download URL
-//         thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-//             //getting url of image
-//             //  document.getElementById("url").value=downloadURL;
-//             images.push(downloadURL);
-//             alert(downloadURL);
-//             //  saveMessage(downloadURL);
-//         });
-//     });
+    }, function () {
+        // Uploaded completed successfully, now we can get the download URL
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            //getting url of image
+            //  document.getElementById("url").value=downloadURL;
+            let id = '_' + Math.random().toString(36).substr(2, 9);
+            let obj = {
+                url : downloadURL,
+                id : id
+            }
+            images.push(obj);
+            alert(downloadURL);
+            //  saveMessage(downloadURL);
+        });
+    });
 
-//     // Get values
-//     //  var url = getInputVal('url');
-//     // Save message
-//     // saveMessage(url);
-// }
+    // Get values
+    //  var url = getInputVal('url');
+    // Save message
+    // saveMessage(url);
+}
 

@@ -34,6 +34,10 @@
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.6" rel="stylesheet" />
+  <script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFxVfpZXDGOwXM7V0gPyJUkQr55VWLlPk"
+  type="text/javascript"></script>
+<script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
 </head>
 
 <body class="g-sidenav-show rtl bg-gray-100">
@@ -293,6 +297,15 @@
                         </select>
                       </div>
 
+                      <div class="form-group">
+                        <label class="form-label" for="categoryProject"> تصنيف المشاريع</label>
+
+                        <select name="categoryProject" id="categoryProject" class="form-control">
+                          <option value="true">مشاريع حاليه</option>
+                          <option value="false">مشاريع سابقه</option>
+                        </select>
+                      </div>
+
 
                       <div class="form-group">
                         <label class="form-label" for="field-1">السعر</label>
@@ -303,35 +316,11 @@
                       </div>
 
                       <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="form-label" for="field-1">تفاصيل المشروع</label>
-                            <span class="desc"></span>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col1">
-                            </div>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col2">
-                            </div>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col3">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="form-label" for="field-1">تفاصيل المشروع</label>
-                            <span class="desc"></span>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col4">
-                            </div>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col5">
-                            </div>
-                            <div class="controls">
-                              <input type="text" value="" class="form-control" id="col6">
-                            </div>
-                          </div>
+                        <div class="col-md-12">
+                          <label class="form-label" for="field-1">تفاصيل المشروع</label>
+                          <input type="text" id="member" name="member" value=""> كم عدد<br />
+                          <a href="#" id="filldetails" onclick="addFields()">اضافة</a>
+                          <div id="container"></div>
                         </div>
                       </div>
 
@@ -369,9 +358,34 @@
                           </div>
                         </div>
                       </div>
-
-
-
+                    
+                      <div id='locationOnMap'>
+                        <div class="form-group">
+                          <label for="map">الموقع على الخريطـة:</label>
+                          <div id="map" style="height:400px;"></div>
+                          <input type="number" hidden id="latitude">
+                          <input type="number" hidden id="longitude">
+                        </div>
+                        <script>
+                          var lp = new locationPicker('map', {
+                            setCurrentPosition: true,
+                            lat: 24.758607,
+                            lng: 46.716408
+                          }, { zoom: 13 });
+                          google.maps.event.addListener(lp.map, 'idle', function (event) {
+                            var location = lp.getMarkerPosition();
+                            document.getElementById('latitude').value = location.lat;
+                            document.getElementById('longitude').value = location.lng
+                          });
+                        </script>
+                      </div>
+                      <!-- <div class="form-group">
+                        <label class="form-label" for="location">موقع المشروع علي الخرائط</label>
+                        <span class="desc"></span>
+                        <div class="controls">
+                          <input type="text" value="" class="form-control" id="location">
+                        </div>
+                      </div> -->
 
 
 
@@ -392,10 +406,6 @@
                       </div>
                     </div>
                     <!-- </form> -->
-                    <a class="text-dark font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;">
-                      اقرأ المستندات
-                      <i class="fas fa-arrow-left text-sm ms-1" aria-hidden="true"></i>
-                    </a>
                   </div>
                 </div>
                 <div class="col-lg-4 me-auto ms-0 text-center">
@@ -432,26 +442,26 @@
         </div>
       </div>
 
-      
 
-        <footer class="footer pt-3  ">
-          <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-              <div class="col-lg-6 mb-lg-0 mb-4">
-                <div class="copyright text-center text-sm text-muted text-lg-end">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear())
-                  </script>,
-                  made with <i class="fa fa-heart"></i> by
-                  <a href="https://www.mutamimon.com/" class="font-weight-bold" target="_blank">Mutamimon</a>
-               
-                </div>
+
+      <footer class="footer pt-3  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-end">
+                ©
+                <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.mutamimon.com/" class="font-weight-bold" target="_blank">Mutamimon</a>
+
               </div>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
+    </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -904,6 +914,30 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
+  <script type='text/javascript'>
+    function addFields(){
+        // Generate a dynamic number of inputs
+        var number = document.getElementById("member").value;
+        // Get the element where the inputs will be added to
+        var container = document.getElementById("container");
+        // Remove every children it had before
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i=0;i<number;i++){
+            // Append a node with a random text
+            container.appendChild(document.createTextNode(" تفصيل" + (i+1)));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "text";
+            input.id = i
+            input.name = " تفصيل  " + i;
+            container.appendChild(input);
+            // Append a line break 
+            container.appendChild(document.createElement("br"));
+        }
+    }
+</script>
 
 </body>
 
