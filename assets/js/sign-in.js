@@ -1,15 +1,16 @@
-var userName = document.getElementById("userName") ;
-var Password = document.getElementById("password") ;
+var userName = document.getElementById("userName");
+var Password = document.getElementById("password");
 
 
 
 
 
-function login(){
-  if(userName.value === "Muta" && Password.value === "12345"){
-   window.location.replace("pages/rtl.html")
-  }else{
-    alert("l2222")
+function login() {
+  if (userName.value === "Muta" && Password.value === "12345") {
+    window.location.replace("pages/rtl.html")
+  } else {
+    var valdity = document.getElementById("validty").innerHTML = "خطأ اسم المستخدم وكلمة المرور غير صحيحة"
+
   }
 }
 
