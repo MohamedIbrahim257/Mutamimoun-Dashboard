@@ -1,4 +1,3 @@
-// const { data } = require("jquery");
 
 var firebaseConfig = {
     apiKey: "AIzaSyDOne-swdHmSrAvJOxeCMGrpeDNJQ1Di4A",
@@ -49,7 +48,6 @@ function submitForm() {
     var latitude = getInputVal ('latitude');
     var longitude = getInputVal ('longitude');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    alert(id)
     saveMessage(id, name, category, images, desc ,price ,curr, latitude ,longitude ,details,thePhoto);
 }
 
@@ -60,7 +58,7 @@ function getInputVal(id) {
 
 // Save message to firebase
 function saveMessage(id,name, category, images, desc ,price ,curr ,latitude , longitude, details,thePhoto) {
-    alert(name)
+    alert("نم الاضافه بنجاح")
     var newMessageRef = messagesRef.push();
     newMessageRef.set({
         id:id,
@@ -97,7 +95,7 @@ function uploadimage() {
             //getting url of image
             //  document.getElementById("url").value=downloadURL;
            thePhoto = downloadURL;
-            alert(downloadURL);
+            alert("تم اضافة الصوره بنجاح");
             //  saveMessage(downloadURL);
         });
     });
@@ -131,7 +129,7 @@ function uploadPhotos() {
                 id : id
             }
             images.push(obj);
-            alert(downloadURL);
+            alert("تم اضافه الصوره بنجاح");
             //  saveMessage(downloadURL);
         });
     });
