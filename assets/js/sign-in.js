@@ -7,7 +7,7 @@ var Password = document.getElementById("password") ;
 
 function login(){
   if(userName.value === "Muta" && Password.value === "12345"){
-   window.location.replace("rtl.html")
+   window.location.replace("pages/rtl.html")
   }else{
     alert("l2222")
   }
