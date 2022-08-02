@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -21,10 +20,9 @@
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.6" rel="stylesheet" />
-  <script 
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFxVfpZXDGOwXM7V0gPyJUkQr55VWLlPk"
-  type="text/javascript"></script>
-<script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFxVfpZXDGOwXM7V0gPyJUkQr55VWLlPk"
+    type="text/javascript"></script>
+  <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
 </head>
 
 <body class="g-sidenav-show rtl bg-gray-100">
@@ -170,7 +168,8 @@
         </div>
 
       </div>
-      <a target="_blank" class="btn bg-gradient-primary mt-3 w-100" href="https://www.mutamimon.com/">الذهاب الي متممون</a>
+      <a target="_blank" class="btn bg-gradient-primary mt-3 w-100" href="https://www.mutamimon.com/">الذهاب الي
+        متممون</a>
     </div>
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg overflow-x-hidden">
@@ -263,112 +262,112 @@
                     <p class="mb-1 pt-2 text-bold"> آضافه مشروع</p>
                     <h5 class="font-weight-bolder">آحدث المشاريع</h5>
                     <!-- <p class="mb-5">اضافة المشاريع والتعديل عليها</p> -->
-                    <!-- <form action ="#" method="post"> -->
-                    <div class="col-lg-12 col-md-8 col-sm-9 col-xs-12">
+                    <form  id="myForm" >
+                      <div class="col-lg-12 col-md-8 col-sm-9 col-xs-12">
 
-                      <div class="form-group">
-                        <label class="form-label" for="name">آسم المشروع</label>
+                        <div class="form-group">
+                          <label class="form-label" for="name">آسم المشروع</label>
 
-                        <div class="controls">
-                          <input type="text" class="form-control" id="name">
-                        </div>
-                      </div>
-
-
-                      <div class="form-group">
-                        <label class="form-label" for="category">تصنيف</label>
-
-                        <select name="category" id="category" class="form-control">
-                          <option value="ادوار">آدوار</option>
-                          <option value="شقق">شقق</option>
-                        </select>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="form-label" for="categoryProject"> تصنيف المشاريع</label>
-
-                        <select name="categoryProject" id="categoryProject" class="form-control">
-                          <option value="true">مشاريع حاليه</option>
-                          <option value="false">مشاريع سابقه</option>
-                        </select>
-                      </div>
-
-
-                      <div class="form-group">
-                        <label class="form-label" for="field-1">السعر</label>
-                        <span class="desc"></span>
-                        <div class="controls">
-                          <input type="text" value="" class="form-control" id="price">
-                        </div>
-                      </div>
-
-                      <div class="row my-5">
-                        <div class="col-md-12">
-                          <label class="form-label" for="member">تفاصيل المشروع</label>
-                          <div class="controls my-3" >
-                            <input type="text" id="member" name="member" value=""> كم عدد<br />
+                          <div class="controls">
+                            <input type="text" class="form-control" id="name">
                           </div>
-                          <a class="form-control" href="#" id="filldetails" onclick="addFields()">اضافة</a>
-                          <div class="my-3" id="container"></div>
                         </div>
-                      </div>
 
-                      <div class="form-group">
-                        <label class="form-label" for="files">آختيار الصوره</label>
 
-                        <div class="controls">
-                          <input type="file" class="form-control" id="files" name="files">
+                        <div class="form-group">
+                          <label class="form-label" for="category">تصنيف</label>
+
+                          <select name="category" id="category" class="form-control">
+                            <option value="ادوار">آدوار</option>
+                            <option value="شقق">شقق</option>
+                          </select>
                         </div>
-                        <button name="url" value="Upload" onclick="uploadimage()" type="submit"
-                          class="btn btn-primary my-2">حفظ الصوره</button>
-                      </div>
 
-                      <div class="row mt-4">
+                        <div class="form-group">
+                          <label class="form-label" for="categoryProject"> تصنيف المشاريع</label>
 
-                        <div class="col-lg-12">
-                          <div class="card">
-                            <div class="card-header pb-0">
-                              <div class="upload__box">
-                                <div class="upload__btn-box d-flex justify-content-center">
-                                  <label class="upload__btn">
-                                    <p>صور المشروع</p>
-                                    <input name="files" id="photos" type="file" multiple="" data-max_length="20"
-                                      class="upload__inputfile">
-                                  </label>
+                          <select name="categoryProject" id="categoryProject" class="form-control">
+                            <option value="true">مشاريع حاليه</option>
+                            <option value="false">مشاريع سابقه</option>
+                          </select>
+                        </div>
 
+
+                        <div class="form-group">
+                          <label class="form-label" for="field-1">السعر</label>
+                          <span class="desc"></span>
+                          <div class="controls">
+                            <input type="text" value="" class="form-control" id="price">
+                          </div>
+                        </div>
+
+                        <div class="row my-5">
+                          <div class="col-md-12">
+                            <label class="form-label" for="member">تفاصيل المشروع</label>
+                            <div class="controls my-3">
+                              <input type="text" id="member" name="member" value=""> كم عدد<br />
+                            </div>
+                            <a class="form-control" href="#" id="filldetails" onclick="addFields()">اضافة</a>
+                            <div class="my-3" id="container"></div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="form-label" for="files">آختيار الصوره</label>
+
+                          <div class="controls">
+                            <input type="file" class="form-control" id="files" name="files">
+                          </div>
+                          <button name="url" value="Upload" onclick="uploadimage()" type="submit"
+                            class="btn btn-primary my-2">حفظ الصوره</button>
+                        </div>
+
+                        <div class="row mt-4">
+
+                          <div class="col-lg-12">
+                            <div class="card">
+                              <div class="card-header pb-0">
+                                <div class="upload__box">
+                                  <div class="upload__btn-box d-flex justify-content-center">
+                                    <label class="upload__btn">
+                                      <p>صور المشروع</p>
+                                      <input name="files" id="photos" type="file" multiple="" data-max_length="20"
+                                        class="upload__inputfile">
+                                    </label>
+
+                                  </div>
+                                  <button name="url" value="Upload" onclick="uploadPhotos()" type="submit"
+                                    class="btn btn-primary my-2">حفظ الصوره</button>
+                                  <div class="upload__img-wrap"></div>
                                 </div>
-                                <button name="url" value="Upload" onclick="uploadPhotos()" type="submit"
-                                  class="btn btn-primary my-2">حفظ الصوره</button>
-                                <div class="upload__img-wrap"></div>
+
                               </div>
 
                             </div>
-
                           </div>
                         </div>
-                      </div>
-                    
-                      <div id='locationOnMap'>
-                        <div class="form-group">
-                          <label for="map">الموقع على الخريطـة:</label>
-                          <div id="map" style="height:400px;"></div>
-                          <input type="number" hidden id="latitude">
-                          <input type="number" hidden id="longitude">
+
+                        <div id='locationOnMap'>
+                          <div class="form-group">
+                            <label for="map">الموقع على الخريطـة:</label>
+                            <div id="map" style="height:400px;"></div>
+                            <input type="number" hidden id="latitude">
+                            <input type="number" hidden id="longitude">
+                          </div>
+                          <script>
+                            var lp = new locationPicker('map', {
+                              setCurrentPosition: true,
+                              lat: 24.758607,
+                              lng: 46.716408
+                            }, { zoom: 13 });
+                            google.maps.event.addListener(lp.map, 'idle', function (event) {
+                              var location = lp.getMarkerPosition();
+                              document.getElementById('latitude').value = location.lat;
+                              document.getElementById('longitude').value = location.lng
+                            });
+                          </script>
                         </div>
-                        <script>
-                          var lp = new locationPicker('map', {
-                            setCurrentPosition: true,
-                            lat: 24.758607,
-                            lng: 46.716408
-                          }, { zoom: 13 });
-                          google.maps.event.addListener(lp.map, 'idle', function (event) {
-                            var location = lp.getMarkerPosition();
-                            document.getElementById('latitude').value = location.lat;
-                            document.getElementById('longitude').value = location.lng
-                          });
-                        </script>
-                      </div>
-                      <!-- <div class="form-group">
+                        <!-- <div class="form-group">
                         <label class="form-label" for="location">موقع المشروع علي الخرائط</label>
                         <span class="desc"></span>
                         <div class="controls">
@@ -378,23 +377,23 @@
 
 
 
-                      <div class="form-group">
-                        <label class="form-label" for="desc">وصف المشروع</label>
+                        <div class="form-group">
+                          <label class="form-label" for="desc">وصف المشروع</label>
 
-                        <div class="controls">
-                          <textarea class="form-control autogrow" cols="5" id="desc"></textarea>
+                          <div class="controls">
+                            <textarea class="form-control autogrow" cols="5" id="desc"></textarea>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
-                      <div class="text-left">
-                        <button value="to_fire_base" onclick="submitForm()" type="submit"
-                          class="btn btn-primary">Save</button>
-                        <button type="button" class="btn">Cancel</button>
+                      <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
+                        <div class="text-left">
+                          <button value="to_fire_base" onclick="submitForm()" type="submit"
+                            class="btn btn-primary">Save</button>
+                          <button type="button" class="btn">Cancel</button>
+                        </div>
                       </div>
-                    </div>
-                    <!-- </form> -->
+                    </form>
                   </div>
                 </div>
                 <div class="col-lg-4 me-auto ms-0 text-center">
@@ -901,38 +900,51 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
   <script type='text/javascript'>
-    function addFields(){
-        // Generate a dynamic number of inputs
-        var number = document.getElementById("member").value;
-        // Get the element where the inputs will be added to
-        var container = document.getElementById("container");
-        // Remove every children it had before
-        while (container.hasChildNodes()) {
-            container.removeChild(container.lastChild);
-        }
-        for (i=0;i<number;i++){
-            // Append a node with a random text
-            container.appendChild(document.createTextNode(" تفصيل" + (i+1)));
-            // Create an <input> element, set its type and name attributes
-            var input = document.createElement("input");
-            input.type = "text";
-            input.id = i
-            input.name = " تفصيل  " + i;
-            container.appendChild(input);
-            // Append a line break 
-            container.appendChild(document.createElement("br"));
-        }
+    function addFields() {
+      // Generate a dynamic number of inputs
+      var number = document.getElementById("member").value;
+      // Get the element where the inputs will be added to
+      var container = document.getElementById("container");
+      // Remove every children it had before
+      while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild);
+      }
+      for (i = 0; i < number; i++) {
+        // Append a node with a random text
+        container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
+        // Create an <input> element, set its type and name attributes
+        var input = document.createElement("input");
+        input.type = "text";
+        input.id = i
+        input.name = " تفصيل  " + i;
+        container.appendChild(input);
+        // Append a line break 
+        container.appendChild(document.createElement("br"));
+      }
     }
-</script>
-<script>
+  </script>
+  <script>
 
-function disableBack() { window.history.forward(); }
-setTimeout("disableBack()", NaN);
-window.onunload = function () { null };
+    function disableBack() { window.history.forward(); }
+    setTimeout("disableBack()", NaN);
+    window.onunload = function () { null };
 
 
 
-</script>
+    const form = document.getElementById('my_form');
+
+    form.addEventListener('submit', function handleSubmit(event) {
+      event.preventDefault();
+
+      // 👇️ Send data to server here
+
+      // 👇️ Reset form here
+      form.reset();
+    });
+
+
+
+  </script>
 
 </body>
 

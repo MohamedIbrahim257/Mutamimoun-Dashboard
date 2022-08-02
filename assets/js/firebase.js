@@ -49,6 +49,7 @@ function submitForm() {
     var longitude = getInputVal ('longitude');
     let id = '_' + Math.random().toString(36).substr(2, 9);
     saveMessage(id, name, category, images, desc ,price ,curr, latitude ,longitude ,details,thePhoto);
+    document.getElementById("myForm").reset();
 }
 
 // Function to get get form values
