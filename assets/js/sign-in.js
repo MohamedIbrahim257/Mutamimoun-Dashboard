@@ -6,7 +6,7 @@ var Password = document.getElementById("password");
 
 
 function login() {
-  if (userName.value === "Muta" && Password.value === "12345") {
+  if (userName.value === "Muta2022" && Password.value === "muta*2022") {
     window.location.replace("pages/rtl.html")
   } else {
     var valdity = document.getElementById("validty").innerHTML = "خطأ اسم المستخدم وكلمة المرور غير صحيحة"
@@ -18,7 +18,7 @@ function login() {
 
 
 function disableBack() { window.history.forward(); }
-setTimeout("disableBack()", 0);
+setTimeout("disableBack()", NaN);
 window.onunload = function () { null };
 
 
