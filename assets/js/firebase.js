@@ -46,14 +46,24 @@ function submitForm() {
     var latitude = getInputVal('latitude');
     var longitude = getInputVal('longitude');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto);
-    document.getElementById("myForm").reset();
+    if(!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto){
+        alert("الرجاء ملئ الخانات الفارغه")
+      }else{
+        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto);
+        window.location.reload("")
+      }
+      
+alert("تم الاضافه")
 }
 
 // Function to get get form values
 function getInputVal(id) {
     return document.getElementById(id).value;
 }
+
+
+
+
 
 // Save message to firebase
 function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto) {
@@ -157,8 +167,7 @@ var nameProje, catProje, genProje, priceProje, detailsProje, mainPhotoProje, pho
 
 
 document.getElementById("select").onclick = function () {
-    // Ready();
-    //Project Data/yalla ?
+    
     var messagesRef = firebase.database()
         .ref('Projects');
     let arr = [];
@@ -168,91 +177,92 @@ document.getElementById("select").onclick = function () {
             element.val().name === document.getElementById("name").value ? arr.push(element.val()) : console.log("Bye");
 
         });
-        alert(arr[0].id);
-        localStorage.setItem("id", arr[0].id);
-        //  document.getElementById("name").value = snapshot.val().name
-        if (arr[0].category) {
-            document.getElementById("category").value = arr[0].category
+
+        if(arr.length>0){
+            localStorage.setItem("id", arr[0].id);
+            //  document.getElementById("name").value = snapshot.val().name
+            if (arr[0].category) {
+                document.getElementById("category").value = arr[0].category
+            }
+            //    document.getElementById("categoryProject").value = arr[0].curr
+            var container = document.getElementById("container");
+            // Remove every children it had before
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (let i = 0; i < arr[0].details.length; i++) {
+                // Append a node with a random text
+                container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "text";
+                input.id = i
+                input.value = arr[0].details[i].text
+                container.appendChild(input);
+                // Append a line break 
+                container.appendChild(document.createElement("br"));
+            }
+            var lp = new locationPicker('map', {
+                setCurrentPosition: true,
+                lat: arr[0].latitude,
+                lng: arr[0].longitude
+            }, { zoom: 13 });
+            google.maps.event.addListener(lp.map, 'idle', function (event) {
+                var location = lp.getMarkerPosition();
+                document.getElementById('latitude').value = location.lat;
+                document.getElementById('longitude').value = location.lng
+            });
+            document.getElementById("price").value = arr[0].price
+            //    console.log(document.getElementById("files"));
+            document.getElementById("zaPhoto").src = arr[0].thePhoto;
+            //--------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------
+    
+            //--------------------------------------------------------------------------------
+            // img
+            // p
+    
+            //--------------------------------------------------------------------------------
+    
+            //--------------------------------------------------------------------------------
+    
+            var container = document.getElementById("forThat");
+            var forThis = document.getElementById("forThis");
+            for (let j = 0; j < arr[0].photo.length; j++) {
+                var input = document.createElement("img");
+                input.src = arr[0].photo[j].url;
+                input.id = arr[0].photo[j].id;
+                forThis.appendChild(input);
+                var btn = document.createElement("button");
+              
+                btn.id = j+1;
+                btn.name = arr[0].photo[j].id;
+                // btn.onclick = `uClicked(${arr[0].photo[j].id})`;
+                btn.innerText = "X";
+                btn.style = "border : none ; width:40px ; height:40px ; font-size : 0.8rem ; color:black; border-radius: 50%;font-weigth:bold";
+                input.style.width = "150px"
+                // btn.onclick = uClicked(arr[0].photo[j].id);
+                btn.onclick = function(){
+                    uClicked(arr[0].photo[j].id);
+                }
+                currImg = arr[0].photo
+                forThis.appendChild(btn);
+                container.appendChild(forThis);
+             
+    
+                // Append a line break 
+                container.appendChild(document.createElement("br"));
+            }
+    
+            document.getElementById("latitude").value = arr[0].latitude
+            document.getElementById("longitude").value = arr[0].longitude
+            document.getElementById("desc").value = arr[0].desc
+            document.getElementById("member").value = arr[0].details.length;
+        }else{
+            alert("اسم المشروع خطآ")
         }
-        //    document.getElementById("categoryProject").value = arr[0].curr
-        var container = document.getElementById("container");
-        // Remove every children it had before
-        while (container.hasChildNodes()) {
-            container.removeChild(container.lastChild);
-        }
-        for (let i = 0; i < arr[0].details.length; i++) {
-            // Append a node with a random text
-            container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
-            // Create an <input> element, set its type and name attributes
-            var input = document.createElement("input");
-            input.type = "text";
-            input.id = i
-            input.value = arr[0].details[i].text
-            container.appendChild(input);
-            // Append a line break 
-            container.appendChild(document.createElement("br"));
-        }
-        var lp = new locationPicker('map', {
-            setCurrentPosition: true,
-            lat: arr[0].latitude,
-            lng: arr[0].longitude
-        }, { zoom: 13 });
-        google.maps.event.addListener(lp.map, 'idle', function (event) {
-            var location = lp.getMarkerPosition();
-            document.getElementById('latitude').value = location.lat;
-            document.getElementById('longitude').value = location.lng
-        });
-        document.getElementById("price").value = arr[0].price
-        //    console.log(document.getElementById("files"));
-        document.getElementById("zaPhoto").src = arr[0].thePhoto;
-        //--------------------------------------------------------------------------------
-        //--------------------------------------------------------------------------------
-
-        //--------------------------------------------------------------------------------
-        // img
-        // p
-
-        //--------------------------------------------------------------------------------
-
-        //--------------------------------------------------------------------------------
-
-        var container = document.getElementById("forThat");
-        var forThis = document.getElementById("forThis");
-        for (let j = 0; j < arr[0].photo.length; j++) {
-            var input = document.createElement("img");
-            input.src = arr[0].photo[j].url;
-            input.id = arr[0].photo[j].id;
-            // container.style.width = "50px"
-            // forThis.style.width = "50px"
-            forThis.appendChild(input);
-            let btn = document.createElement("button");
-            btn.id = arr[0].photo[j].id;
-            btn.innerText = "X";
-            btn.style = "border : none ; width:40px ; height:40px ; font-size : 0.8rem ; color:black; border-radius: 50%;font-weigth:bold";
-            input.style.width = "150px"
-
-            btn.addEventListener("click", function () {
-
-                arr[0].photo[j].url.delete().then(() => {
-
-                    alert("File deleted successfully")
-                }).catch((error) => {
-                    alert("Uh-oh, an error occurred!")
-                });
-
-            })
-            currImg = arr[0].photo
-            forThis.appendChild(btn);
-            container.appendChild(forThis);
-
-            // Append a line break 
-            container.appendChild(document.createElement("br"));
-        }
-
-        document.getElementById("latitude").value = arr[0].latitude
-        document.getElementById("longitude").value = arr[0].longitude
-        document.getElementById("desc").value = arr[0].desc
-        document.getElementById("member").value = arr[0].details.length;
+        
+   
     });
 
 
@@ -282,9 +292,7 @@ document.getElementById("update").onclick = function () {
             }
         };
         let num = document.getElementById("forThis");
-        if (currImg.length < num.getElementsByTagName("img").length) {
-
-        }
+        
         const db = firebase.database().ref().child("Projects").child(id);
         db.update({
             'name': document.getElementById("name").value,
@@ -298,12 +306,17 @@ document.getElementById("update").onclick = function () {
             'details': detol,
             'photo': currImg
         })
+       
 
+
+        window.location.reload("/")
+       
+        // document.getElementById("myForm").reset()
+        
+        
     }
-    document.getElementById("myForm").reset().then(()=>{
-        window.location.reload()
-    })
-   
+
+   alert("تم التعديل")
 }
 document.getElementById("delete").onclick = function () {
     let id = localStorage.getItem("id");
@@ -312,14 +325,23 @@ document.getElementById("delete").onclick = function () {
     else {
         const db = firebase.database().ref().child("Projects").child(id);
         db.remove();
-        alert("تم مسح المشروع");
-        document.getElementById("myForm").reset().then(()=>{
-            window.location.reload()
-        })
+      
+            window.location.reload("/")
+            alert("تم مسح المشروع");
+      
 
     }
 }
 
+function uClicked(imgId){
+ 
+            const index = currImg.findIndex(o =>{
+                return o.id === imgId
+            });
+
+            currImg.splice(index,1)  
+     
+}
 
 
 
