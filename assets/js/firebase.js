@@ -16,8 +16,8 @@ firebase.initializeApp(firebaseConfig);
 let images = []
 let thePhoto;
 let currImg = [];
-let pdf ;
-let adv ;
+let pdf;
+let adv;
 
 var messagesRef = firebase.database()
     .ref('Projects');
@@ -48,14 +48,14 @@ function submitForm() {
     var latitude = getInputVal('latitude');
     var longitude = getInputVal('longitude');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    if(!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto){
+    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto) {
         alert("الرجاء ملئ الخانات الفارغه")
-      }else{
-        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto ,pdf ,adv);
+    } else {
+        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv);
         window.location.reload("")
-      }
-      
-alert("تم الاضافه")
+    }
+
+    alert("تم الاضافه")
 }
 
 // Function to get get form values
@@ -68,16 +68,16 @@ function getInputVal(id) {
 
 
 // Save message to firebase
-function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto ,pdf ,adv) {
+function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
-        let d = Date.now();
+    let d = Date.now();
     firebase.database().ref('Projects/' + d).set({
         id: d,
         curr: curr,
         name: name,
         category: category,
         photo: images,
-        pdf:pdf,
+        pdf: pdf,
         desc: desc,
         price: price,
         latitude: latitude,
@@ -85,7 +85,7 @@ function saveMessage(id, name, category, images, desc, price, curr, latitude, lo
         details: details,
         thePhoto: thePhoto,
         createdAt: d,
-        adv:adv,
+        adv: adv,
     });
 
 
@@ -221,7 +221,14 @@ var nameProje, catProje, genProje, priceProje, detailsProje, mainPhotoProje, pho
 
 
 document.getElementById("select").onclick = function () {
-    
+
+
+
+    var invoked1 = document.querySelector(".save");
+    var invoked2 = document.querySelector(".saveBottom");
+    invoked1.classList.add("d-none")
+    invoked2.classList.add("d-none")
+
     var messagesRef = firebase.database()
         .ref('Projects');
     let arr = [];
@@ -232,7 +239,7 @@ document.getElementById("select").onclick = function () {
 
         });
 
-        if(arr.length>0){
+        if (arr.length > 0) {
             localStorage.setItem("id", arr[0].id);
             //  document.getElementById("name").value = snapshot.val().name
             if (arr[0].category) {
@@ -273,15 +280,15 @@ document.getElementById("select").onclick = function () {
             document.getElementById("advPhoto").src = arr[0].adv;
             //--------------------------------------------------------------------------------
             //--------------------------------------------------------------------------------
-    
+
             //--------------------------------------------------------------------------------
             // img
             // p
-    
+
             //--------------------------------------------------------------------------------
-    
+
             //--------------------------------------------------------------------------------
-    
+
             var container = document.getElementById("forThat");
             var forThis = document.getElementById("forThis");
             for (let j = 0; j < arr[0].photo.length; j++) {
@@ -295,7 +302,7 @@ document.getElementById("select").onclick = function () {
                 btn.innerText = "X";
                 btn.style = "border : none ; width:40px ; height:40px ; font-size : 0.8rem ; color:black; border-radius: 50%;font-weigth:bold";
                 input.style.width = "150px"
-                btn.onclick = function(){
+                btn.onclick = function () {
                     uClicked(arr[0].photo[j].id);
                 }
                 currImg = arr[0].photo
@@ -304,18 +311,21 @@ document.getElementById("select").onclick = function () {
                 // Append a line break 
                 container.appendChild(document.createElement("br"));
             }
-    
+
             document.getElementById("latitude").value = arr[0].latitude
             document.getElementById("longitude").value = arr[0].longitude
             document.getElementById("desc").value = arr[0].desc
             document.getElementById("member").value = arr[0].details.length;
             document.getElementById("namepdf").src = arr[0].pdf
             document.getElementById("advPhoto").src = arr[0].adv
-        }else{
+
+            //// button invoked 
+
+        } else {
             alert("اسم المشروع خطآ")
         }
-        
-   
+
+
     });
 
 
@@ -345,7 +355,7 @@ document.getElementById("update").onclick = function () {
             }
         };
         let num = document.getElementById("forThis");
-        
+
         const db = firebase.database().ref().child("Projects").child(id);
         db.update({
             'name': document.getElementById("name").value,
@@ -358,20 +368,20 @@ document.getElementById("update").onclick = function () {
             'thePhoto': document.getElementById("zaPhoto").src,
             'details': detol,
             'photo': currImg,
-            'pdf':document.getElementById("namepdf").src,
-            'adv':document.getElementById("advPhoto").src,
+            'pdf': document.getElementById("namepdf").src,
+            'adv': document.getElementById("advPhoto").src,
         })
-       
+
 
 
         window.location.reload("/")
-       
-     
-        
-        
+
+
+
+
     }
 
-   alert("تم التعديل")
+    alert("تم التعديل")
 }
 document.getElementById("delete").onclick = function () {
     let id = localStorage.getItem("id");
@@ -380,22 +390,22 @@ document.getElementById("delete").onclick = function () {
     else {
         const db = firebase.database().ref().child("Projects").child(id);
         db.remove();
-      
-            window.location.reload("/")
-            alert("تم مسح المشروع");
-      
+
+        window.location.reload("/")
+        alert("تم مسح المشروع");
+
 
     }
 }
 
-function uClicked(imgId){
- 
-            const index = currImg.findIndex(o =>{
-                return o.id === imgId 
-            });
-            currImg.splice(index,1)  
-            document.getElementById(imgId).remove();
-            document.getElementById(imgId).remove();
+function uClicked(imgId) {
+
+    const index = currImg.findIndex(o => {
+        return o.id === imgId
+    });
+    currImg.splice(index, 1)
+    document.getElementById(imgId).remove();
+    document.getElementById(imgId).remove();
 
 
 }
