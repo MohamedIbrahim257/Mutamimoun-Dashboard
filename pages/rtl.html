@@ -254,7 +254,7 @@
       </div>
       <div class="row mt-4">
         <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card">
+          <div class="">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-lg-8 mb-lg-0 mb-4">
@@ -263,9 +263,9 @@
                     <h5 class="font-weight-bolder">آحدث المشاريع</h5>
                     <!-- <p class="mb-5">اضافة المشاريع والتعديل عليها</p> -->
                     <!-- <form  id="myForm" > -->
-                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
+                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30 p-3">
                       <div class="text-left">
-                        <button  value="to_fire_base" onclick="submitForm()" type="submit"
+                        <button value="to_fire_base" onclick="submitForm()" type="submit"
                           class="btn btn-primary save">Save</button>
                         <button id="select" type="button" class="btn">Select</button>
                         <button id="update" type="update" class="btn btn-success">update</button>
@@ -273,55 +273,55 @@
                       </div>
                     </div>
                     <div class="col-lg-12 col-md-8 col-sm-9 col-xs-12">
+                      <div class="card p-3 m-2">
+                        <div class="form-group">
+                          <label class="form-label" for="name">آسم المشروع</label>
 
-                      <div class="form-group">
-                        <label class="form-label" for="name">آسم المشروع</label>
-
-                        <div class="controls">
-                          <input type="text" class="form-control" id="name">
-                        </div>
-                      </div>
-
-
-                      <div class="form-group">
-                        <label class="form-label" for="category">تصنيف</label>
-
-                        <select name="category" id="category" class="form-control">
-                          <option value="أدوار">أدوار</option>
-                          <option value="شقق">شقق</option>
-                        </select>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="form-label" for="categoryProject"> تصنيف المشاريع</label>
-
-                        <select name="categoryProject" id="categoryProject" class="form-control">
-                          <option value="true">مشاريع حاليه</option>
-                          <option value="false">مشاريع سابقه</option>
-                        </select>
-                      </div>
-
-
-                      <div class="form-group">
-                        <label class="form-label" for="field-1">السعر</label>
-                        <span class="desc"></span>
-                        <div class="controls">
-                          <input type="text" value="" class="form-control" id="price">
-                        </div>
-                      </div>
-
-                      <div class="row my-5">
-                        <div class="col-md-12">
-                          <label class="form-label" for="member">تفاصيل المشروع</label>
-                          <div class="controls my-3">
-                            <input type="text" id="member" name="member" value=""> كم عدد<br />
+                          <div class="controls">
+                            <input type="text" class="form-control" id="name">
                           </div>
-                          <a class="form-control" href="#" id="filldetails" onclick="addFields()">اضافة</a>
-                          <div class="my-3" id="container"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label class="form-label" for="category">تصنيف</label>
+
+                          <select name="category" id="category" class="form-control">
+                            <option value="أدوار">أدوار</option>
+                            <option value="شقق">شقق</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="form-label" for="categoryProject"> تصنيف المشاريع</label>
+
+                          <select name="categoryProject" id="categoryProject" class="form-control">
+                            <option value="true">مشاريع حاليه</option>
+                            <option value="false">مشاريع سابقه</option>
+                          </select>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label class="form-label" for="field-1">السعر</label>
+                          <span class="desc"></span>
+                          <div class="controls">
+                            <input type="text" value="" class="form-control" id="price">
+                          </div>
+                        </div>
+
+                        <div class="row my-5">
+                          <div class="col-md-12">
+                            <label class="form-label" for="member">تفاصيل المشروع</label>
+                            <div class="controls my-3">
+                              <input type="text" id="member" name="member" value=""> كم عدد<br />
+                            </div>
+                            <a class="form-control" href="#" id="filldetails" onclick="addFields()">اضافة</a>
+                            <div class="my-3" id="container"></div>
+                          </div>
                         </div>
                       </div>
-
-                      <div class="form-group">
+                      <div class="form-group card p-3 m-2">
                         <label class="form-label" for="files">آختيار الصوره</label>
 
                         <img class="w-25 p-2" id="zaPhoto" src="" alt="">
@@ -333,7 +333,7 @@
                           class="btn btn-primary my-2">حفظ الصوره</button>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group card p-3 m-2">
                         <label class="form-label" for="files">رفع بروشر المشروع</label>
                         <img class="w-25 p-2" id="namepdf" src="" alt="">
                         <div class="controls">
@@ -341,13 +341,13 @@
                         </div>
                         <button name="url" value="Upload" onclick="uploadPdf()" type="submit"
                           class="btn btn-primary my-2">رفع PDF</button>
-                      
+
                       </div>
 
                       <div class="row mt-4">
 
                         <div class="col-lg-12">
-                          <div class="card">
+                          <div class="card m-2 p-3">
                             <div class="card-header pb-0">
                               <div id="forThat" class="upload__box">
                                 <div class="upload__btn-box d-flex justify-content-center">
@@ -369,7 +369,7 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group card p-3 m-2">
                         <label class="form-label" for="files">المساحه الاعلانيه</label>
 
                         <img class="w-25 p-2" id="advPhoto" src="" alt="">
@@ -381,7 +381,7 @@
                           class="btn btn-primary my-2">حفظ الصوره</button>
                       </div>
 
-                      <div id='locationOnMap'>
+                      <div class="card p-3 m-2" id='locationOnMap'>
                         <div class="form-group">
                           <label for="map">الموقع على الخريطـة:</label>
                           <div id="map" style="height:400px;"></div>
@@ -411,7 +411,7 @@
 
 
 
-                      <div class="form-group">
+                      <div class="form-group card p-3 m-2">
                         <label class="form-label" for="desc">وصف المشروع</label>
 
                         <div class="controls">
@@ -420,9 +420,9 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
+                    <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30 p-3">
                       <div class="text-left">
-                        <button  value="to_fire_base" onclick="submitForm()" type="submit"
+                        <button value="to_fire_base" onclick="submitForm()" type="submit"
                           class="btn btn-primary saveBottom">Save</button>
                         <button id="select" type="button" class="btn">Select</button>
                         <button id="update" type="update" class="btn btn-success">update</button>
@@ -451,12 +451,45 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header pb-0">
-              <h6>نظرة عامة على المشاريع</h6>
+              <h6>آضافه الاخبار</h6>
 
             </div>
             <div class="card-body p-3">
               <div class="chart">
-                <canvas id="chart-line" class="chart-canvas" height="300px"></canvas>
+                <div class="form-group">
+                  <label class="form-label" for="name">آسم الخبر</label>
+
+                  <div class="controls">
+                    <input type="text" class="form-control" id="nameNews">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="files">آختيار الصوره</label>
+
+                  <img class="w-25 p-2" id="thePhotoNews" src="" alt="">
+
+                  <div class="controls">
+                    <input type="file" class="form-control" id="imageNews" name="files">
+                  </div>
+                  <button name="url" value="Upload" onclick="uploadimageNews()" type="submit"
+                    class="btn btn-primary my-2">حفظ الصوره</button>
+                </div>
+                <div class="form-group card p-3 m-2">
+                  <label class="form-label" for="desc">وصف الخبر</label>
+
+                  <div class="controls">
+                    <textarea class="form-control autogrow" cols="5" id="descNews"></textarea>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30 p-3">
+                  <div class="text-left">
+                    <button value="to_fire_base" onclick="submitFormNews()" type="submit"
+                      class="btn btn-primary saveBottomNews">Save</button>
+                    <button id="selectNews" type="selectNews" class="btn">Select</button>
+                    <button id="updateNews" type="updateNews" class="btn btn-success">update</button>
+                    <button id="deleteNews" type="delete" class="btn btn-danger">delete</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -546,6 +579,7 @@
   <!--   Core JS Files   -->
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
   <script src="../assets/js/firebase.js"></script>
+  <script src="../assets/js/test.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>

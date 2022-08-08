@@ -48,14 +48,15 @@ function submitForm() {
     var latitude = getInputVal('latitude');
     var longitude = getInputVal('longitude');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto) {
+    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto ,!pdf , !adv) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
         saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv);
         window.location.reload("")
+        alert("تم الاضافه")
     }
 
-    alert("تم الاضافه")
+  
 }
 
 // Function to get get form values
@@ -377,11 +378,11 @@ document.getElementById("update").onclick = function () {
         window.location.reload("/")
 
 
-
+        alert("تم التعديل")
 
     }
 
-    alert("تم التعديل")
+    
 }
 document.getElementById("delete").onclick = function () {
     let id = localStorage.getItem("id");
@@ -409,7 +410,4 @@ function uClicked(imgId) {
 
 
 }
-
-
-
 

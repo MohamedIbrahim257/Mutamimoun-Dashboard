@@ -22,3 +22,9 @@ setTimeout("disableBack()", NaN);
 window.onunload = function () { null };
 
 
+
+document.body.addEventListener("contextmenu", function (e) {
+  e.preventDefault()
+})
+
+
