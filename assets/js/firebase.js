@@ -16,6 +16,8 @@ firebase.initializeApp(firebaseConfig);
 let images = []
 let thePhoto;
 let currImg = [];
+let pdf ;
+let adv ;
 
 var messagesRef = firebase.database()
     .ref('Projects');
@@ -49,7 +51,7 @@ function submitForm() {
     if(!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto){
         alert("الرجاء ملئ الخانات الفارغه")
       }else{
-        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto);
+        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto ,pdf ,adv);
         window.location.reload("")
       }
       
@@ -66,22 +68,24 @@ function getInputVal(id) {
 
 
 // Save message to firebase
-function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto) {
+function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto ,pdf ,adv) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
-
-
-    firebase.database().ref('Projects/' + id).set({
-        id: id,
+        let d = Date.now();
+    firebase.database().ref('Projects/' + d).set({
+        id: d,
         curr: curr,
         name: name,
         category: category,
         photo: images,
+        pdf:pdf,
         desc: desc,
         price: price,
         latitude: latitude,
         longitude: longitude,
         details: details,
-        thePhoto: thePhoto
+        thePhoto: thePhoto,
+        createdAt: d,
+        adv:adv,
     });
 
 
@@ -145,6 +149,56 @@ function uploadPhotos() {
 
 
 }
+
+function uploadPdf() {
+    var type = "3";
+    var storage = firebase.storage();
+    var file = document.getElementById("filespdf").files[0];
+    var storageref = storage.ref();
+    var thisref = storageref.child(type).child(file.name).put(file);
+    thisref.on('state_changed', function (snapshot) {
+
+
+    }, function (error) {
+
+    }, function () {
+        // Uploaded completed successfully, now we can get the download URL
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+
+            pdf = downloadURL;
+            document.getElementById("namepdf").src = pdf;
+            alert("تم اضافة PDF بنجاح");
+
+        });
+    });
+
+}
+
+function uploadimageAdv() {
+    var type = "4";
+    var storage = firebase.storage();
+    var file = document.getElementById("filesadv").files[0];
+    var storageref = storage.ref();
+    var thisref = storageref.child(type).child(file.name).put(file);
+    thisref.on('state_changed', function (snapshot) {
+
+
+    }, function (error) {
+
+    }, function () {
+        // Uploaded completed successfully, now we can get the download URL
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+
+            adv = downloadURL;
+            document.getElementById("advPhoto").src = adv;
+            alert("تم اضافه صوره المساحه اللاعلانيه");
+
+        });
+    });
+
+}
+
+
 
 // -------------------------------------------------------------------------
 
@@ -215,6 +269,8 @@ document.getElementById("select").onclick = function () {
             document.getElementById("price").value = arr[0].price
             //    console.log(document.getElementById("files"));
             document.getElementById("zaPhoto").src = arr[0].thePhoto;
+            document.getElementById("namepdf").src = arr[0].pdf;
+            document.getElementById("advPhoto").src = arr[0].adv;
             //--------------------------------------------------------------------------------
             //--------------------------------------------------------------------------------
     
@@ -234,22 +290,17 @@ document.getElementById("select").onclick = function () {
                 input.id = arr[0].photo[j].id;
                 forThis.appendChild(input);
                 var btn = document.createElement("button");
-              
-                btn.id = j+1;
+                btn.id = arr[0].photo[j].id;
                 btn.name = arr[0].photo[j].id;
-                // btn.onclick = `uClicked(${arr[0].photo[j].id})`;
                 btn.innerText = "X";
                 btn.style = "border : none ; width:40px ; height:40px ; font-size : 0.8rem ; color:black; border-radius: 50%;font-weigth:bold";
                 input.style.width = "150px"
-                // btn.onclick = uClicked(arr[0].photo[j].id);
                 btn.onclick = function(){
                     uClicked(arr[0].photo[j].id);
                 }
                 currImg = arr[0].photo
                 forThis.appendChild(btn);
                 container.appendChild(forThis);
-             
-    
                 // Append a line break 
                 container.appendChild(document.createElement("br"));
             }
@@ -258,6 +309,8 @@ document.getElementById("select").onclick = function () {
             document.getElementById("longitude").value = arr[0].longitude
             document.getElementById("desc").value = arr[0].desc
             document.getElementById("member").value = arr[0].details.length;
+            document.getElementById("namepdf").src = arr[0].pdf
+            document.getElementById("advPhoto").src = arr[0].adv
         }else{
             alert("اسم المشروع خطآ")
         }
@@ -304,14 +357,16 @@ document.getElementById("update").onclick = function () {
             'desc': document.getElementById("desc").value,
             'thePhoto': document.getElementById("zaPhoto").src,
             'details': detol,
-            'photo': currImg
+            'photo': currImg,
+            'pdf':document.getElementById("namepdf").src,
+            'adv':document.getElementById("advPhoto").src,
         })
        
 
 
         window.location.reload("/")
        
-        // document.getElementById("myForm").reset()
+     
         
         
     }
@@ -336,11 +391,13 @@ document.getElementById("delete").onclick = function () {
 function uClicked(imgId){
  
             const index = currImg.findIndex(o =>{
-                return o.id === imgId
+                return o.id === imgId 
             });
-
             currImg.splice(index,1)  
-     
+            document.getElementById(imgId).remove();
+            document.getElementById(imgId).remove();
+
+
 }
 
 
