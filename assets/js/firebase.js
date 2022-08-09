@@ -235,9 +235,13 @@ document.getElementById("select").onclick = function () {
 
 
     var invoked1 = document.querySelector(".save");
-    // var invoked2 = document.querySelector(".saveBottom");
-    invoked1.classList.add("d-none")
-    // invoked2.classList.add("d-none")
+    var invoked2 = document.getElementById("update");
+    var invoked3 = document.getElementById("delete");
+ 
+    invoked1.classList.add("d-none");
+    invoked2.classList.replace("d-none","d-inline-block");
+    invoked3.classList.replace("d-none","d-inline-block")
+
 
     var messagesRef = firebase.database()
         .ref('Projects');
