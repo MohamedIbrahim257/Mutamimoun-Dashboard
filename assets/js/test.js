@@ -108,6 +108,9 @@ document.getElementById("selectNews").onclick = function () {
 
 
         } else {
+            invoked1.classList.add("d-none");
+            invoked2.classList.replace("d-inline-block","d-none");
+            invoked3.classList.replace("d-inline-block","d-none")
             alert("اسم المشروع خطآ")
         }
 

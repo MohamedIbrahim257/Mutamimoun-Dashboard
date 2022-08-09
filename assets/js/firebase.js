@@ -242,6 +242,7 @@ document.getElementById("select").onclick = function () {
     invoked2.classList.replace("d-none","d-inline-block");
     invoked3.classList.replace("d-none","d-inline-block")
 
+  
 
     var messagesRef = firebase.database()
         .ref('Projects');
@@ -349,6 +350,10 @@ document.getElementById("select").onclick = function () {
             //// button invoked 
 
         } else {
+            
+            invoked1.classList.add("d-none");
+            invoked2.classList.replace("d-inline-block","d-none");
+            invoked3.classList.replace("d-inline-block","d-none")
             alert("اسم المشروع خطآ")
         }
 
