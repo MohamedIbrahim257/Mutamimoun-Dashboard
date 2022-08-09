@@ -52,7 +52,7 @@ function submitForm() {
     let id = '_' + Math.random().toString(36).substr(2, 9);
 
 
-    if (!name, !category,!status ,!images, !desc, !curr, !latitude, !longitude, !details, !thePhoto, !pdf ,!adv) {
+    if (!name, !category,!status ,!images, !desc, !curr, !latitude, !longitude, !details, !thePhoto ) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
         saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink);
@@ -85,7 +85,7 @@ function getInputVal(id) {
             category: category,
             status:status,
             photo: images,
-            pdf: pdf,
+            pdf: pdf || "",
             desc: desc,
             price: price,
             latitude: latitude,
@@ -93,7 +93,7 @@ function getInputVal(id) {
             details: details,
             thePhoto: thePhoto,
             createdAt: d,
-            adv: adv,
+            adv: adv || "",
             advLink: advLink
         });
     
@@ -366,12 +366,12 @@ document.getElementById("update").onclick = function () {
         let detol = []
         if ("true" == document.getElementById("categoryProject").value)
             curr = true;
-        else curr = false;
+        else curr = false;  
         if (document.getElementById("member").value > 0) {
             for (let i = 0; i < document.getElementById("member").value; i++) {
                 let id = '_' + Math.random().toString(36).substr(2, 9);
                 let obj = {
-                    id: id,
+                    id: id ,
                     text: document.getElementById(i).value
                 }
                 detol.push(obj)
