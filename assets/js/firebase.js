@@ -309,10 +309,11 @@ document.getElementById("select").onclick = function () {
             //--------------------------------------------------------------------------------
 
             //--------------------------------------------------------------------------------
-
+                    console.log(arr[0].photo);
             var container = document.getElementById("forThat");
             var forThis = document.getElementById("forThis");
             for (let j = 0; j < arr[0].photo.length; j++) {
+          
                 var input = document.createElement("img");
                 input.src = arr[0].photo[j].url;
                 input.id = arr[0].photo[j].id;
@@ -322,12 +323,28 @@ document.getElementById("select").onclick = function () {
                 btn.name = arr[0].photo[j].id;
                 btn.innerText = "X";
                 // forThis.style = "position:relative"
-                btn.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ;";
+                btn.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ; position:relative; left:30px";
                 input.style.width = "150px"
-                btn.onclick = function () {
-                    uClicked(arr[0].photo[j].id);
-                }
-                currImg = arr[0].photo;
+                console.log(arr[0].photo[j].id);
+                canBeh(btn,arr[0].photo[j].id)
+                // btn.onclick = function () {
+                //     let z =0;
+                //     if(j === 0 ){
+                //         console.log(arr[0].photo[j].id);
+                //         uClicked(arr[0].photo[j].id,j);
+                //     }  else {
+                     
+                //           console.log(j);
+                        
+                //         uClicked(arr[0].photo[5].id,j);
+                       
+                //     } 
+                // }
+                // console.log(btn);
+              
+                    currImg = arr[0].photo;
+                // console.log(currImg);
+              
                 forThis.appendChild(btn);
                 container.appendChild(forThis);
                 // Append a line break 
@@ -336,7 +353,10 @@ document.getElementById("select").onclick = function () {
 
             document.getElementById("latitude").value = arr[0].latitude
             document.getElementById("longitude").value = arr[0].longitude
-            document.getElementById("desc").value = arr[0].desc
+            document.getElementById("desc").value = arr[0].desc;
+            if( document.getElementById("member").value = arr[0].details == undefined){
+                document.getElementById("member").value = arr[0].details = ""
+            }
             document.getElementById("member").value = arr[0].details.length;
             document.getElementById("namepdf").src = arr[0].pdf
             document.getElementById("advPhoto").src = arr[0].adv
@@ -386,8 +406,7 @@ document.getElementById("update").onclick = function () {
                 detol.push(obj)
             }
         };
-        let num = document.getElementById("forThis");
-
+   
         const db = firebase.database().ref().child("Projects").child(id);
         db.update({
             'name': document.getElementById("name").value,
@@ -440,7 +459,13 @@ function uClicked(imgId) {
     currImg.splice(index, 1)
     document.getElementById(imgId).remove();
     document.getElementById(imgId).remove();
-
-
+   
 }
 
+function canBeh(btn,srcs){
+              
+    btn.onclick = function () {
+            uClicked(srcs);
+    }
+
+}
