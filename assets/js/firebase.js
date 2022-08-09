@@ -26,6 +26,7 @@ var messagesRef = firebase.database()
 function submitForm() {
     var name = getInputVal('name');
     var category = getInputVal('category');
+    var status = getInputVal('status');
     var current = getInputVal('categoryProject');
     let curr;
     let details = [];
@@ -49,15 +50,18 @@ function submitForm() {
     var longitude = getInputVal('longitude');
     var advLink = getInputVal('advLink');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto ,!pdf , !adv ) {
+
+
+    if (!name, !category,!status ,!images, !desc, !curr, !latitude, !longitude, !details, !thePhoto, !pdf) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
-        saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv ,advLink);
+        saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink);
         window.location.reload("")
         alert("تم الاضافه")
     }
 
-  
+
+
 }
 
 // Function to get get form values
@@ -70,7 +74,7 @@ function getInputVal(id) {
 
 
 // Save message to firebase
-function saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv ,advLink) {
+function saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
     let d = Date.now();
     firebase.database().ref('Projects/' + d).set({
@@ -78,6 +82,7 @@ function saveMessage(id, name, category, images, desc, price, curr, latitude, lo
         curr: curr,
         name: name,
         category: category,
+        status:status,
         photo: images,
         pdf: pdf,
         desc: desc,
@@ -88,9 +93,8 @@ function saveMessage(id, name, category, images, desc, price, curr, latitude, lo
         thePhoto: thePhoto,
         createdAt: d,
         adv: adv,
-        advLink:advLink
+        advLink: advLink
     });
-
 
 }
 
@@ -248,6 +252,9 @@ document.getElementById("select").onclick = function () {
             if (arr[0].category) {
                 document.getElementById("category").value = arr[0].category
             }
+            if (arr[0].status) {
+                document.getElementById("status").value = arr[0].status
+            }
             //    document.getElementById("categoryProject").value = arr[0].curr
             var container = document.getElementById("container");
             // Remove every children it had before
@@ -303,12 +310,13 @@ document.getElementById("select").onclick = function () {
                 btn.id = arr[0].photo[j].id;
                 btn.name = arr[0].photo[j].id;
                 btn.innerText = "X";
-                btn.style = "border : none ; width:40px ; height:40px ; font-size : 0.8rem ; color:black; border-radius: 50%;font-weigth:bold";
+                forThis.style = "position:relative"
+                btn.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ; position:absolute";
                 input.style.width = "150px"
                 btn.onclick = function () {
                     uClicked(arr[0].photo[j].id);
                 }
-                currImg = arr[0].photo
+                currImg = arr[0].photo;
                 forThis.appendChild(btn);
                 container.appendChild(forThis);
                 // Append a line break 
@@ -321,12 +329,12 @@ document.getElementById("select").onclick = function () {
             document.getElementById("member").value = arr[0].details.length;
             document.getElementById("namepdf").src = arr[0].pdf
             document.getElementById("advPhoto").src = arr[0].adv
-            if( document.getElementById("advLink").value = arr[0].advLink == undefined){
+            if (document.getElementById("advLink").value = arr[0].advLink == undefined) {
                 document.getElementById("advLink").value = ""
-            } else{
-                document.getElementById("advLink").value = arr[0].advLink 
+            } else {
+                document.getElementById("advLink").value = arr[0].advLink
             }
-           
+
 
             //// button invoked 
 
@@ -369,6 +377,7 @@ document.getElementById("update").onclick = function () {
         db.update({
             'name': document.getElementById("name").value,
             'category': document.getElementById("category").value,
+            'status':document.getElementById("status").value ,
             'curr': curr,
             'price': document.getElementById("price").value,
             'latitude': document.getElementById("latitude").value,
@@ -379,7 +388,7 @@ document.getElementById("update").onclick = function () {
             'photo': currImg,
             'pdf': document.getElementById("namepdf").src,
             'adv': document.getElementById("advPhoto").src,
-            'advLink':document.getElementById("advLink").value
+            'advLink': document.getElementById("advLink").value
         })
 
 
@@ -391,7 +400,7 @@ document.getElementById("update").onclick = function () {
 
     }
 
-    
+
 }
 document.getElementById("delete").onclick = function () {
     let id = localStorage.getItem("id");
