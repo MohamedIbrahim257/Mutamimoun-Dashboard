@@ -82,9 +82,13 @@ function uploadimageNews() {
 document.getElementById("selectNews").onclick = function () {
 
 
-
-    var invokedNews = document.querySelector(".saveBottomNews");
-    invokedNews.classList.add("d-none")
+    var invoked1 = document.getElementById("saveNews");
+    var invoked2 = document.getElementById("updateNews");
+    var invoked3 = document.getElementById("deleteNews");
+ 
+    invoked1.classList.add("d-none");
+    invoked2.classList.replace("d-none","d-inline-block");
+    invoked3.classList.replace("d-none","d-inline-block")
 
     var messagesRef = firebase.database()
         .ref('News');
