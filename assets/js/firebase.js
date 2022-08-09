@@ -52,7 +52,7 @@ function submitForm() {
     let id = '_' + Math.random().toString(36).substr(2, 9);
 
 
-    if (!name, !category,!status ,!images, !desc, !curr, !latitude, !longitude, !details, !thePhoto, !pdf) {
+    if (!name, !category,!status ,!images, !desc, !curr, !latitude, !longitude, !details, !thePhoto, !pdf ,!adv) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
         saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink);
@@ -74,29 +74,32 @@ function getInputVal(id) {
 
 
 // Save message to firebase
-function saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
-    //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
-    let d = Date.now();
-    firebase.database().ref('Projects/' + d).set({
-        id: d,
-        curr: curr,
-        name: name,
-        category: category,
-        status:status,
-        photo: images,
-        pdf: pdf,
-        desc: desc,
-        price: price,
-        latitude: latitude,
-        longitude: longitude,
-        details: details,
-        thePhoto: thePhoto,
-        createdAt: d,
-        adv: adv,
-        advLink: advLink
-    });
 
-}
+    function saveMessage(id, name, category, status ,images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
+        //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
+        let d = Date.now();
+        firebase.database().ref('Projects/' + d).set({
+            id: d,
+            curr: curr,
+            name: name,
+            category: category,
+            status:status,
+            photo: images,
+            pdf: pdf,
+            desc: desc,
+            price: price,
+            latitude: latitude,
+            longitude: longitude,
+            details: details,
+            thePhoto: thePhoto,
+            createdAt: d,
+            adv: adv,
+            advLink: advLink
+        });
+    
+    }
+    
+
 
 
 
@@ -261,18 +264,21 @@ document.getElementById("select").onclick = function () {
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
             }
-            for (let i = 0; i < arr[0].details.length; i++) {
-                // Append a node with a random text
-                container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("input");
-                input.type = "text";
-                input.id = i
-                input.value = arr[0].details[i].text
-                container.appendChild(input);
-                // Append a line break 
-                container.appendChild(document.createElement("br"));
+            if(arr[0].details){
+                for (let i = 0; i < arr[0].details.length; i++) {
+                    // Append a node with a random text
+                    container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
+                    // Create an <input> element, set its type and name attributes
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.id = i
+                    input.value = arr[0].details[i].text
+                    container.appendChild(input);
+                    // Append a line break 
+                    container.appendChild(document.createElement("br"));
+                }
             }
+    
             var lp = new locationPicker('map', {
                 setCurrentPosition: true,
                 lat: arr[0].latitude,
@@ -310,8 +316,8 @@ document.getElementById("select").onclick = function () {
                 btn.id = arr[0].photo[j].id;
                 btn.name = arr[0].photo[j].id;
                 btn.innerText = "X";
-                forThis.style = "position:relative"
-                btn.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ; position:absolute";
+                // forThis.style = "position:relative"
+                btn.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ;";
                 input.style.width = "150px"
                 btn.onclick = function () {
                     uClicked(arr[0].photo[j].id);
