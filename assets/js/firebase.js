@@ -49,7 +49,7 @@ function submitForm() {
     var longitude = getInputVal('longitude');
     var advLink = getInputVal('advLink');
     let id = '_' + Math.random().toString(36).substr(2, 9);
-    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto ,!pdf , !adv , !advLink) {
+    if (!name, !category, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto ,!pdf , !adv ) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
         saveMessage(id, name, category, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv ,advLink);
@@ -228,9 +228,9 @@ document.getElementById("select").onclick = function () {
 
 
     var invoked1 = document.querySelector(".save");
-    var invoked2 = document.querySelector(".saveBottom");
+    // var invoked2 = document.querySelector(".saveBottom");
     invoked1.classList.add("d-none")
-    invoked2.classList.add("d-none")
+    // invoked2.classList.add("d-none")
 
     var messagesRef = firebase.database()
         .ref('Projects');
@@ -321,7 +321,12 @@ document.getElementById("select").onclick = function () {
             document.getElementById("member").value = arr[0].details.length;
             document.getElementById("namepdf").src = arr[0].pdf
             document.getElementById("advPhoto").src = arr[0].adv
-            document.getElementById("advLink").value = arr[0].advLink
+            if( document.getElementById("advLink").value = arr[0].advLink == undefined){
+                document.getElementById("advLink").value = ""
+            } else{
+                document.getElementById("advLink").value = arr[0].advLink 
+            }
+           
 
             //// button invoked 
 
