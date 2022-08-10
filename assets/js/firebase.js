@@ -28,10 +28,10 @@ function submitForm() {
     var category = getInputVal('category');
     var status = getInputVal('status');
     var current = getInputVal('categoryProject');
-    let curr;
-    if (current == "true")
-        curr = true;
-    else curr = false;
+    // let curr;
+    // if (current == "true")
+    //     curr = true;
+    // else curr = false;
     let details = [];
 
     if (document.getElementById("member").value > 0) {
@@ -53,10 +53,10 @@ function submitForm() {
     let id = '_' + Math.random().toString(36).substr(2, 9);
 
 
-    if (!name, !category, !status, !images, !desc, !curr, !latitude, !longitude, !details, !thePhoto) {
+    if (!name, !category, !status, !images, !desc, !current, !latitude, !longitude, !details, !thePhoto) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
-        saveMessage(id, name, category, status, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink);
+        saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink);
         window.location.reload("")
         alert("تم الاضافه")
     }
@@ -76,12 +76,12 @@ function getInputVal(id) {
 
 // Save message to firebase
 
-function saveMessage(id, name, category, status, images, desc, price, curr, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
+function saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
     let d = Date.now();
     firebase.database().ref('Projects/' + d).set({
         id: d,
-        curr: curr,
+        current: current,
         name: name,
         category: category,
         status: status,
@@ -264,8 +264,8 @@ document.getElementById("select").onclick = function () {
             if (arr[0].status) {
                 document.getElementById("status").value = arr[0].status
             }
-            if (arr[0].curr) {
-                document.getElementById("categoryProject").value = arr[0].curr
+            if (arr[0].current) {
+                document.getElementById("categoryProject").value = arr[0].current
             }
             //    document.getElementById("categoryProject").value = arr[0].curr
             var container = document.getElementById("container");
@@ -389,11 +389,11 @@ document.getElementById("update").onclick = function () {
     if (!id)
         alert("الرجاء اختيار المشروع أولا");
     else {
-        let curr;
+        // let current;
         let detol = []
-        if ("true" == document.getElementById("categoryProject").value)
-            curr = true;
-        else curr = false;
+        // if ("true" == document.getElementById("categoryProject").value)
+        //     current = true;
+        // else current = false;
         if (document.getElementById("member").value > 0) {
             for (let i = 0; i < document.getElementById("member").value; i++) {
                 let id = '_' + Math.random().toString(36).substr(2, 9);
@@ -411,7 +411,7 @@ document.getElementById("update").onclick = function () {
             'name': document.getElementById("name").value,
             'category': document.getElementById("category").value,
             'status': document.getElementById("status").value,
-            'curr': curr,
+            'current': document.getElementById("categoryProject").value,
             'price': document.getElementById("price").value,
             'latitude': document.getElementById("latitude").value,
             'longitude': document.getElementById("longitude").value,
