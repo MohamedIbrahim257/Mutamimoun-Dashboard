@@ -85,7 +85,7 @@ function getInputVal(id) {
             category: category,
             status:status,
             photo: images,
-            pdf: pdf || "",
+            pdf: pdf ,
             desc: desc,
             price: price,
             latitude: latitude,
@@ -93,7 +93,7 @@ function getInputVal(id) {
             details: details,
             thePhoto: thePhoto,
             createdAt: d,
-            adv: adv || "",
+            adv: adv ,
             advLink: advLink
         });
     
@@ -299,6 +299,8 @@ document.getElementById("select").onclick = function () {
             document.getElementById("zaPhoto").src = arr[0].thePhoto;
             document.getElementById("namepdf").src = arr[0].pdf;
             document.getElementById("advPhoto").src = arr[0].adv;
+       
+           
             //--------------------------------------------------------------------------------
             //--------------------------------------------------------------------------------
 
@@ -359,6 +361,7 @@ document.getElementById("select").onclick = function () {
             }
             document.getElementById("member").value = arr[0].details.length;
             document.getElementById("namepdf").src = arr[0].pdf
+            
             document.getElementById("advPhoto").src = arr[0].adv
             if (document.getElementById("advLink").value = arr[0].advLink == undefined) {
                 document.getElementById("advLink").value = ""
@@ -406,6 +409,7 @@ document.getElementById("update").onclick = function () {
                 detol.push(obj)
             }
         };
+
    
         const db = firebase.database().ref().child("Projects").child(id);
         db.update({
