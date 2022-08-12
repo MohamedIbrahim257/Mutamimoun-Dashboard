@@ -83,7 +83,7 @@ function saveMessage(id, name, category, status, images, desc, price, current, l
         name: name,
         category: category,
         status: status,
-        projectDetails : projectDetails,
+        projectDetails : projectDetails || "",
         photo: images,
         pdf: pdf || "",
         desc: desc,
@@ -361,20 +361,20 @@ document.getElementById("select").onclick = function () {
                 input.style.width = "150px"
                 console.log(arr[0].photo[j].id);
                 canBeh(btn, arr[0].photo[j].id)
-                // btn.onclick = function () {
-                //     let z =0;
-                //     if(j === 0 ){
-                //         console.log(arr[0].photo[j].id);
-                //         uClicked(arr[0].photo[j].id,j);
-                //     }  else {
+                btn.onclick = function () {
+                    let z =0;
+                    if(j === 0 ){
+                        console.log(arr[0].photo[j].id);
+                        uClicked(arr[0].photo[j].id,j);
+                    }  else {
 
-                //           console.log(j);
+                          console.log(j);
 
-                //         uClicked(arr[0].photo[5].id,j);
+                        uClicked(arr[0].photo[5].id,j);
 
-                //     } 
-                // }
-                // console.log(btn);
+                    } 
+                }
+                console.log(btn);
 
                 currImg = arr[0].photo;
                 forThis.appendChild(btn);
