@@ -26605,4 +26605,48 @@ pre[class*="language-"] {
   }
 }
 
+
+
+
+#crud td, #crud th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#crud tr:nth-child(even){background-color: #00669c;}
+
+#crud tr:hover {background-color: #ddd;}
+
+#crud th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:#0b5d6f ;
+  color: white;
+  text-align: center;
+}
+
+
+
+#crudNews td, #crudNews th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#crudNews tr:nth-child(even){background-color: #00669c;}
+
+#crudNews tr:hover {background-color: #ddd;}
+
+#crudNews th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:#0b5d6f ;
+  color: white;
+  text-align: center;
+}
+
+
 /*# sourceMappingURL=dashboard-free.css.map */

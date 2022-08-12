@@ -276,16 +276,28 @@
     <div class="container-fluid py-4">
       <div class="row">
 
-
+        <table id="crud">
+          <tr>
+            <th>صوره المشروع</th>
+            <th>اسم المشروع</th>
+            <th>حاله الوحده</th>
+            <th>تصنيف الوحده</th>
+          </tr>      
+             
+        </table>
 
       </div>
+      
       <div class="row mt-4">
+        
         <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-lg-8 mb-lg-0 mb-4">
                   <div class="d-flex flex-column h-100">
+              
+                    
                     <p class="mb-1 pt-2 text-bold"> آضافه مشروع</p>
                     <h5 class="font-weight-bolder">آحدث المشاريع</h5>
                     <!-- <p class="mb-5">اضافة المشاريع والتعديل عليها</p> -->
@@ -316,6 +328,7 @@
                           <select name="category" id="category" class="form-control">
                             <option value="أدوار">أدوار</option>
                             <option value="شقق">شقق</option>
+                            <option value="فلل">فلل</option>
                           </select>
                         </div>
 
@@ -325,6 +338,7 @@
                           <select name="status" id="status" class="form-control">
                             <option value="جديدة">جديدة</option>
                             <option value="مباع">مباع</option>
+                            <option value="تحت الانشاء">تحت الانشاء</option>
                           </select>
                         </div>
 
@@ -347,7 +361,18 @@
                           </div>
                         </div>
 
-                        <div class="row my-5">
+                        <div class="form-group card p-3 m-2">
+                          <label class="form-label" for="files">تفاصيل المشروع</label>
+                          <img class="w-25 p-2" id="projectDetails" src="" alt="">
+                          <div class="controls">
+                            <input type="file" class="form-control" id="filesProjectDetails" name="files">
+                          </div>
+                          <button name="url" value="Upload" onclick="uploadProjectDeatails()" type="submit"
+                            class="btn btn-primary my-2">رفع</button>
+
+                        </div>
+
+                        <!-- <div class="row my-5">
                           <div class="col-md-12">
                             <label class="form-label" for="member">تفاصيل المشروع</label>
                             <div class="controls my-3">
@@ -357,96 +382,97 @@
                             <div class="my-3" id="container"></div>
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group card p-3 m-2">
-                        <label class="form-label" for="files">آختيار الصوره</label>
+                      </div> -->
+               
+                        <div class="form-group card p-3 m-2">
+                          <label class="form-label" for="files">آختيار الصوره</label>
 
-                        <img class="w-25 p-2" id="zaPhoto" src="" alt="">
+                          <img class="w-25 p-2" id="zaPhoto" src="" alt="">
 
-                        <div class="controls">
-                          <input type="file" class="form-control" id="files" name="files">
+                          <div class="controls">
+                            <input type="file" class="form-control" id="files" name="files">
+                          </div>
+                          <button name="url" value="Upload" onclick="uploadimage()" type="submit"
+                            class="btn btn-primary my-2">حفظ الصوره</button>
                         </div>
-                        <button name="url" value="Upload" onclick="uploadimage()" type="submit"
-                          class="btn btn-primary my-2">حفظ الصوره</button>
-                      </div>
 
-                      <div class="form-group card p-3 m-2">
-                        <label class="form-label" for="files">رفع بروشر المشروع</label>
-                        <img class="w-25 p-2" id="namepdf" src="" alt="">
-                        <div class="controls">
-                          <input type="file" class="form-control" id="filespdf" name="files">
+                        <div class="form-group card p-3 m-2">
+                          <label class="form-label" for="files">رفع بروشر المشروع</label>
+                          <img class="w-25 p-2" id="namepdf" src="" alt="">
+                          <div class="controls">
+                            <input type="file" class="form-control" id="filespdf" name="files">
+                          </div>
+                          <button name="url" value="Upload" onclick="uploadPdf()" type="submit"
+                            class="btn btn-primary my-2">رفع PDF</button>
+
                         </div>
-                        <button name="url" value="Upload" onclick="uploadPdf()" type="submit"
-                          class="btn btn-primary my-2">رفع PDF</button>
 
-                      </div>
+                        <div class="row mt-4">
 
-                      <div class="row mt-4">
+                          <div class="col-lg-12">
+                            <div class="card m-2 p-3">
+                              <div class="card-header pb-0">
+                                <div id="forThat" class="upload__box">
+                                  <div class="upload__btn-box d-flex justify-content-center">
+                                    <label class="upload__btn">
+                                      <p>صور المشروع</p>
+                                      <input name="files" id="photos" type="file" multiple="" data-max_length="20"
+                                        class="upload__inputfile">
+                                    </label>
 
-                        <div class="col-lg-12">
-                          <div class="card m-2 p-3">
-                            <div class="card-header pb-0">
-                              <div id="forThat" class="upload__box">
-                                <div class="upload__btn-box d-flex justify-content-center">
-                                  <label class="upload__btn">
-                                    <p>صور المشروع</p>
-                                    <input name="files" id="photos" type="file" multiple="" data-max_length="20"
-                                      class="upload__inputfile">
-                                  </label>
-
+                                  </div>
+                                  <button name="url" value="Upload" onclick="uploadPhotos()" type="submit"
+                                    class="btn btn-primary my-2">حفظ الصوره</button>
+                                  <div id="forThis" class="upload__img-wrap"></div>
                                 </div>
-                                <button name="url" value="Upload" onclick="uploadPhotos()" type="submit"
-                                  class="btn btn-primary my-2">حفظ الصوره</button>
-                                <div id="forThis" class="upload__img-wrap"></div>
+
                               </div>
 
                             </div>
-
                           </div>
                         </div>
-                      </div>
 
-                      <div class="form-group card p-3 m-2">
-                        <label class="form-label" for="files">المساحه الاعلانيه</label>
+                        <div class="form-group card p-3 m-2">
+                          <label class="form-label" for="files">المساحه الاعلانيه</label>
 
-                        <img class="w-25 p-2" id="advPhoto"  alt="">
-
-                        <div class="controls">
-                          <input type="file" class="form-control" id="filesadv" name="files">
-                        </div>
-                        <button name="url" value="Upload" onclick="uploadimageAdv()" type="submit"
-                          class="btn btn-primary my-2">حفظ الصوره</button>
-                        <div class="form-group">
-                          <label class="form-label" for="name"> link</label>
+                          <img class="w-25 p-2" id="advPhoto" src="" alt="">
 
                           <div class="controls">
-                            <input type="text" class="form-control" id="advLink">
+                            <input type="file" class="form-control" id="filesadv" name="files">
+                          </div>
+                          <button name="url" value="Upload" onclick="uploadimageAdv()" type="submit"
+                            class="btn btn-primary my-2">حفظ الصوره</button>
+                          <div class="form-group">
+                            <label class="form-label" for="name"> link</label>
+
+                            <div class="controls">
+                              <input type="text" class="form-control" id="advLink">
+                            </div>
                           </div>
                         </div>
-                      </div>
 
 
-                      <div class="card p-3 m-2" id='locationOnMap'>
-                        <div class="form-group">
-                          <label for="map">الموقع على الخريطـة:</label>
-                          <div id="map" style="height:400px;"></div>
-                          <input type="number" hidden id="latitude">
-                          <input type="number" hidden id="longitude">
+                        <div class="card p-3 m-2" id='locationOnMap'>
+                          <div class="form-group">
+                            <label for="map">الموقع على الخريطـة:</label>
+                            <div id="map" style="height:400px;"></div>
+                            <input type="number" hidden id="latitude">
+                            <input type="number" hidden id="longitude">
+                          </div>
+                          <script>
+                            var lp = new locationPicker('map', {
+                              setCurrentPosition: true,
+                              lat: 24.758607,
+                              lng: 46.716408
+                            }, { zoom: 13 });
+                            google.maps.event.addListener(lp.map, 'idle', function (event) {
+                              var location = lp.getMarkerPosition();
+                              document.getElementById('latitude').value = location.lat;
+                              document.getElementById('longitude').value = location.lng
+                            });
+                          </script>
                         </div>
-                        <script>
-                          var lp = new locationPicker('map', {
-                            setCurrentPosition: true,
-                            lat: 24.758607,
-                            lng: 46.716408
-                          }, { zoom: 13 });
-                          google.maps.event.addListener(lp.map, 'idle', function (event) {
-                            var location = lp.getMarkerPosition();
-                            document.getElementById('latitude').value = location.lat;
-                            document.getElementById('longitude').value = location.lng
-                          });
-                        </script>
-                      </div>
-                      <!-- <div class="form-group">
+                        <!-- <div class="form-group">
                         <label class="form-label" for="location">موقع المشروع علي الخرائط</label>
                         <span class="desc"></span>
                         <div class="controls">
@@ -456,16 +482,17 @@
 
 
 
-                      <div class="form-group card p-3 m-2">
-                        <label class="form-label" for="desc">وصف المشروع</label>
+                        <div class="form-group card p-3 m-2">
+                          <label class="form-label" for="desc">وصف المشروع</label>
 
-                        <div class="controls">
-                          <textarea class="form-control autogrow" cols="5" id="desc"></textarea>
+                          <div class="controls">
+                            <textarea class="form-control autogrow" cols="5" id="desc"></textarea>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      
 
-                    <!-- <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30 p-3">
+                      <!-- <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30 p-3">
                       <div class="text-left">
                         <button value="to_fire_base" onclick="submitForm()" type="submit"
                           class="btn btn-primary saveBottom">Save</button>
@@ -474,8 +501,10 @@
                         <button id="delete" type="delete" class="btn btn-danger">delete</button>
                       </div>
                     </div> -->
-                    <!-- </form> -->
+                      <!-- </form> -->
+                    </div>
                   </div>
+         
                 </div>
                 <div class="col-lg-4 me-auto ms-0 text-center">
                   <div class=" border-radius-lg min-height-200">
@@ -488,27 +517,26 @@
               </div>
             </div>
           </div>
+
         </div>
+        <footer class="footer pt-3  ">
+          <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-6 mb-lg-0 mb-4">
+                <div class="copyright text-center text-sm text-muted text-lg-end">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear())
+                  </script>,
+                  made with <i class="fa fa-heart"></i> by
+                  <a href="https://www.mutamimon.com/" class="font-weight-bold" target="_blank">Mutamimon</a>
 
-      </div>
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-end">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart"></i> by
-                <a href="https://www.mutamimon.com/" class="font-weight-bold" target="_blank">Mutamimon</a>
-
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">

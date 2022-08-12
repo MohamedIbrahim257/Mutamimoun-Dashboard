@@ -85,10 +85,10 @@ document.getElementById("selectNews").onclick = function () {
     var invoked1 = document.getElementById("saveNews");
     var invoked2 = document.getElementById("updateNews");
     var invoked3 = document.getElementById("deleteNews");
- 
+
     invoked1.classList.add("d-none");
-    invoked2.classList.replace("d-none","d-inline-block");
-    invoked3.classList.replace("d-none","d-inline-block")
+    invoked2.classList.replace("d-none", "d-inline-block");
+    invoked3.classList.replace("d-none", "d-inline-block")
 
     var messagesRef = firebase.database()
         .ref('News');
@@ -109,8 +109,8 @@ document.getElementById("selectNews").onclick = function () {
 
         } else {
             invoked1.classList.add("d-none");
-            invoked2.classList.replace("d-inline-block","d-none");
-            invoked3.classList.replace("d-inline-block","d-none")
+            invoked2.classList.replace("d-inline-block", "d-none");
+            invoked3.classList.replace("d-inline-block", "d-none")
             alert("اسم المشروع خطآ")
         }
 
@@ -164,4 +164,36 @@ document.getElementById("deleteNews").onclick = function () {
 
     }
 }
+
+
+
+var messagesRef = firebase.database()
+    .ref('News');
+console.log(messagesRef);
+
+let arrNews = []
+messagesRef.once("value", (snapshot) => {
+    snapshot.forEach((element) => {
+        console.log(element.val());
+        arrNews.push(element.val());
+        // console.log(arr);
+    })
+    arrNews.map(e => {
+        document.getElementById("crudNews").innerHTML += `
+
+  <tr>
+  <td>${e.nameNews}</td>
+  <td><img width="100" src="${e.thePhotoNews}" /></td>
+
+  </tr>
+
+    
+`
+    })
+
+
+})
+
+
+
 

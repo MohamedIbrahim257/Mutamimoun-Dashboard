@@ -18,6 +18,7 @@ let thePhoto;
 let currImg = [];
 let pdf;
 let adv;
+let projectDetails
 
 var messagesRef = firebase.database()
     .ref('Projects');
@@ -28,22 +29,19 @@ function submitForm() {
     var category = getInputVal('category');
     var status = getInputVal('status');
     var current = getInputVal('categoryProject');
-    // let curr;
-    // if (current == "true")
-    //     curr = true;
-    // else curr = false;
+
     let details = [];
 
-    if (document.getElementById("member").value > 0) {
-        for (let i = 0; i < document.getElementById("member").value; i++) {
-            let id = '_' + Math.random().toString(36).substr(2, 9);
-            let obj = {
-                id: id,
-                text: document.getElementById(i).value
-            }
-            details.push(obj)
-        }
-    };
+    // if (document.getElementById("member").value > 0) {
+    //     for (let i = 0; i < document.getElementById("member").value; i++) {
+    //         let id = '_' + Math.random().toString(36).substr(2, 9);
+    //         let obj = {
+    //             id: id,
+    //             text: document.getElementById(i).value
+    //         }
+    //         details.push(obj)
+    //     }
+    // };
 
     var desc = getInputVal('desc');
     var price = getInputVal('price');
@@ -56,7 +54,7 @@ function submitForm() {
     if (!name, !category, !status, !images, !desc, !current, !latitude, !longitude, !details, !thePhoto) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
-        saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink);
+        saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,projectDetails);
         window.location.reload("")
         alert("تم الاضافه")
     }
@@ -76,7 +74,7 @@ function getInputVal(id) {
 
 // Save message to firebase
 
-function saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink) {
+function saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,projectDetails) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
     let d = Date.now();
     firebase.database().ref('Projects/' + d).set({
@@ -85,6 +83,7 @@ function saveMessage(id, name, category, status, images, desc, price, current, l
         name: name,
         category: category,
         status: status,
+        projectDetails : projectDetails,
         photo: images,
         pdf: pdf || "",
         desc: desc,
@@ -210,6 +209,34 @@ function uploadimageAdv() {
 }
 
 
+function uploadProjectDeatails() {
+    var type = "6";
+    var storage = firebase.storage();
+    var file = document.getElementById("filesProjectDetails").files[0];
+    var storageref = storage.ref();
+    var thisref = storageref.child(type).child(file.name).put(file);
+    thisref.on('state_changed', function (snapshot) {
+
+
+    }, function (error) {
+
+    }, function () {
+        // Uploaded completed successfully, now we can get the download URL
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+
+            projectDetails = downloadURL;
+            document.getElementById("projectDetails").src = projectDetails;
+            alert("تم اضافه صوره المساحه اللاعلانيه");
+
+        });
+    });
+
+}
+
+
+
+
+
 
 // -------------------------------------------------------------------------
 
@@ -257,7 +284,7 @@ document.getElementById("select").onclick = function () {
 
         if (arr.length > 0) {
             localStorage.setItem("id", arr[0].id);
-            //  document.getElementById("name").value = snapshot.val().name
+
             if (arr[0].category) {
                 document.getElementById("category").value = arr[0].category
             }
@@ -267,26 +294,26 @@ document.getElementById("select").onclick = function () {
             if (arr[0].current) {
                 document.getElementById("categoryProject").value = arr[0].current
             }
-            //    document.getElementById("categoryProject").value = arr[0].curr
-            var container = document.getElementById("container");
-            // Remove every children it had before
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
-            }
-            if (arr[0].details) {
-                for (let i = 0; i < arr[0].details.length; i++) {
-                    // Append a node with a random text
-                    container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
-                    // Create an <input> element, set its type and name attributes
-                    var input = document.createElement("input");
-                    input.type = "text";
-                    input.id = i
-                    input.value = arr[0].details[i].text
-                    container.appendChild(input);
-                    // Append a line break 
-                    container.appendChild(document.createElement("br"));
-                }
-            }
+
+            // var container = document.getElementById("container");
+            // // Remove every children it had before
+            // while (container.hasChildNodes()) {
+            //     container.removeChild(container.lastChild);
+            // }
+            // if (arr[0].details) {
+            //     for (let i = 0; i < arr[0].details.length; i++) {
+            //         // Append a node with a random text
+            //         container.appendChild(document.createTextNode(" تفصيل" + (i + 1)));
+            //         // Create an <input> element, set its type and name attributes
+            //         var input = document.createElement("input");
+            //         input.type = "text";
+            //         input.id = i
+            //         input.value = arr[0].details[i].text
+            //         container.appendChild(input);
+            //         // Append a line break 
+            //         container.appendChild(document.createElement("br"));
+            //     }
+            // }
 
             var lp = new locationPicker('map', {
                 setCurrentPosition: true,
@@ -298,11 +325,19 @@ document.getElementById("select").onclick = function () {
                 document.getElementById('latitude').value = location.lat;
                 document.getElementById('longitude').value = location.lng
             });
+
             document.getElementById("price").value = arr[0].price
-            //    console.log(document.getElementById("files"));
             document.getElementById("zaPhoto").src = arr[0].thePhoto;
-            document.getElementById("namepdf").src = arr[0].pdf;
-            document.getElementById("advPhoto").src = arr[0].adv;
+            
+                document.getElementById("namepdf").src = arr[0].pdf 
+           
+             
+             
+                document.getElementById("advPhoto").src = arr[0].adv 
+                document.getElementById("filesProjectDetails").src = arr[0].projectDetails 
+        
+           
+          
 
 
             //--------------------------------------------------------------------------------
@@ -351,19 +386,19 @@ document.getElementById("select").onclick = function () {
             document.getElementById("latitude").value = arr[0].latitude
             document.getElementById("longitude").value = arr[0].longitude
             document.getElementById("desc").value = arr[0].desc;
-            if (document.getElementById("member").value = arr[0].details == undefined) {
-                document.getElementById("member").value = arr[0].details = ""
-            }
-            document.getElementById("member").value = arr[0].details.length;
-            // document.getElementById("namepdf").src = arr[0].pdf
+            // if (document.getElementById("member").value = arr[0].details == undefined) {
+            //     document.getElementById("member").value = arr[0].details = ""
+            // }
+            // document.getElementById("member").value = arr[0].details.length;
 
-            // document.getElementById("advPhoto").src = arr[0].adv
             if (document.getElementById("advLink").value = arr[0].advLink == undefined) {
                 document.getElementById("advLink").value = ""
             } else {
                 document.getElementById("advLink").value = arr[0].advLink
             }
 
+    
+       
 
             //// button invoked 
 
@@ -394,37 +429,44 @@ document.getElementById("update").onclick = function () {
         // if ("true" == document.getElementById("categoryProject").value)
         //     current = true;
         // else current = false;
-        if (document.getElementById("member").value > 0) {
-            for (let i = 0; i < document.getElementById("member").value; i++) {
-                let id = '_' + Math.random().toString(36).substr(2, 9);
-                let obj = {
-                    id: id,
-                    text: document.getElementById(i).value
-                }
-                detol.push(obj)
-            }
-        };
+        // if (document.getElementById("member").value > 0) {
+        //     for (let i = 0; i < document.getElementById("member").value; i++) {
+        //         let id = '_' + Math.random().toString(36).substr(2, 9);
+        //         let obj = {
+        //             id: id,
+        //             text: document.getElementById(i).value
+        //         }
+        //         detol.push(obj)
+        //     }
+        // };
+         
+        
 
-
-        const db = firebase.database().ref().child("Projects").child(id);
+        const db = firebase.database().ref().child("Projects").child(id);   
+  
+   
+          
         db.update({
-            'name': document.getElementById("name").value,
-            'category': document.getElementById("category").value,
-            'status': document.getElementById("status").value,
-            'current': document.getElementById("categoryProject").value,
-            'price': document.getElementById("price").value,
-            'latitude': document.getElementById("latitude").value,
-            'longitude': document.getElementById("longitude").value,
-            'desc': document.getElementById("desc").value,
-            'thePhoto': document.getElementById("zaPhoto").src,
-            'details': detol,
-            'photo': currImg,
-            'pdf': document.getElementById("namepdf").src,
-            'adv': document.getElementById("advPhoto").src,
-            'advLink': document.getElementById("advLink").value
-        })
-
-
+            name: document.getElementById("name").value,
+            category: document.getElementById("category").value,
+            status: document.getElementById("status").value,
+            current: document.getElementById("categoryProject").value,
+            price: document.getElementById("price").value,
+            latitude: document.getElementById("latitude").value,
+            longitude: document.getElementById("longitude").value,
+            desc: document.getElementById("desc").value,
+            thePhoto: document.getElementById("zaPhoto").src,
+            details: detol,
+            photo: currImg,
+            pdf: document.getElementById("namepdf").src.length <60 ?  "" : document.getElementById("namepdf").src  ,
+            adv: document.getElementById("advPhoto").src.length < 60  ? ""  : document.getElementById("advPhoto").src ,
+            adv: document.getElementById("filesProjectDetails").src.length < 60  ? ""  : document.getElementById("filesProjectDetails").src ,
+            advLink: document.getElementById("advLink").value
+        }) 
+       
+ 
+ 
+  
 
         window.location.reload("/")
 
@@ -468,3 +510,41 @@ function canBeh(btn, srcs) {
     }
 
 }
+
+
+
+
+
+
+
+
+
+var messagesRef = firebase.database()
+.ref('Projects');
+console.log(messagesRef);
+let arr = [];
+
+messagesRef.once("value", (snapshot) => {
+snapshot.forEach((element) => {
+    console.log(element.val());
+    element.val().current === "مشاريع حاليه" ? arr.push(element.val()) : console.log("welcome");
+    // console.log(arr);
+})
+arr.map(e => {
+    document.getElementById("crud").innerHTML += `
+
+  <tr>
+  <td><img width="100" src="${e.thePhoto}" /></td>
+  <td>${e.name}</td>
+  <td>${e.status}</td>
+  <td>${e.category}</td>
+  </tr>
+`
+})
+
+
+})
+
+
+
+
