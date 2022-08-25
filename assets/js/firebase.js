@@ -226,7 +226,7 @@ function uploadProjectDeatails() {
 
             projectDetails = downloadURL;
             document.getElementById("projectDetails").src = projectDetails;
-            alert("تم اضافه صوره المساحه اللاعلانيه");
+            alert("تم اضافه تفاصيل المشروع");
 
         });
     });
@@ -334,7 +334,7 @@ document.getElementById("select").onclick = function () {
              
              
                 document.getElementById("advPhoto").src = arr[0].adv 
-                document.getElementById("filesProjectDetails").src = arr[0].projectDetails 
+                document.getElementById("projectDetails").src = arr[0].projectDetails 
         
            
           
@@ -459,8 +459,8 @@ document.getElementById("update").onclick = function () {
             details: detol,
             photo: currImg,
             pdf: document.getElementById("namepdf").src.length <60 ?  "" : document.getElementById("namepdf").src  ,
-            adv: document.getElementById("advPhoto").src.length < 60  ? ""  : document.getElementById("advPhoto").src ,
-            adv: document.getElementById("filesProjectDetails").src.length < 60  ? ""  : document.getElementById("filesProjectDetails").src ,
+            adv: document.getElementById("advPhoto").src.length <60  ? ""  : document.getElementById("advPhoto").src ,
+            projectDetails: document.getElementById("projectDetails").src.length <60  ? ""  : document.getElementById("projectDetails").src ,
             advLink: document.getElementById("advLink").value
         }) 
        
@@ -527,7 +527,7 @@ let arr = [];
 messagesRef.once("value", (snapshot) => {
 snapshot.forEach((element) => {
     console.log(element.val());
-    element.val().current === "مشاريع حاليه" ? arr.push(element.val()) : console.log("welcome");
+    arr.push(element.val());
     // console.log(arr);
 })
 arr.map(e => {
