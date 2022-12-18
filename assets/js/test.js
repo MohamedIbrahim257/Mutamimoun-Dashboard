@@ -7,13 +7,13 @@ var messagesRef = firebase.database()
 
 
 function submitFormNews() {
-    var nameNews = getInputVal('nameNews');
-    var descNews = getInputVal("descNews")
-    let id = '_' + Math.random().toString(36).substr(2, 9);
-    if (!nameNews, !thePhotoNews, !descNews) {
+    var nameNews = document.getElementById('nameNews').value;
+    var textBox = document.getElementById("textBox").innerText
+    // let id = '_' + Math.random().toString(36).substr(2, 9);
+    if (!nameNews, !thePhotoNews, !textBox) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
-        saveMessageNews(nameNews, thePhotoNews, descNews);
+        saveMessageNews(nameNews, thePhotoNews, textBox);
         window.location.reload("")
         alert("تم الاضافه")
     }
@@ -22,23 +22,24 @@ function submitFormNews() {
 }
 
 // Function to get get form values
-function getInputVal(id) {
-    return document.getElementById(id).value;
-}
+// function getInputVal(id) {
+//     return document.getElementById(id).value;
+   
+// }
 
 
 
 
 
 // Save message to firebase
-function saveMessageNews(nameNews, thePhotoNews, descNews) {
+function saveMessageNews(nameNews, thePhotoNews, textBox) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
     let d = Date.now();
     firebase.database().ref('News/' + d).set({
         id: d,
         nameNews: nameNews,
         thePhotoNews: thePhotoNews,
-        descNews: descNews,
+        textBox: textBox,
         createdAt: d,
     });
 
@@ -48,8 +49,9 @@ function saveMessageNews(nameNews, thePhotoNews, descNews) {
 
 
 
+
 function uploadimageNews() {
-    var type = "5";
+    var type = "7";
     var storage = firebase.storage();
     var file = document.getElementById("imageNews").files[0];
     var storageref = storage.ref();
@@ -104,7 +106,7 @@ document.getElementById("selectNews").onclick = function () {
             localStorage.setItem("id", array[0].id);
 
             document.getElementById("thePhotoNews").src = array[0].thePhotoNews;
-            document.getElementById("descNews").value = array[0].descNews;
+            document.getElementById("textBox").innerText = array[0].textBox;
 
 
         } else {
@@ -136,7 +138,7 @@ document.getElementById("updateNews").onclick = function () {
         dbNews.update({
             'nameNews': document.getElementById("nameNews").value,
             'thePhotoNews': document.getElementById("thePhotoNews").src,
-            'descNews': document.getElementById("descNews").value
+            'textBox': document.getElementById("textBox").innerText
         })
 
 

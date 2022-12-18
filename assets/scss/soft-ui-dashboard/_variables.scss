@@ -27,7 +27,7 @@ $black:    #000 !default;
 $blue:    #63B3ED !default;
 $indigo:  #596CFF !default;
 $purple:  #6f42c1 !default;
-$pink:    #12546a !default;
+$pink:    #5d3b75 !default;
 $red:     #F56565 !default;
 $orange:  #fd7e14 !default;
 $yellow:  #FBD38D !default;
@@ -53,9 +53,9 @@ $colors: (
 ) !default;
 // scss-docs-end colors-map
 
-$primary:       #12546a !default;
+$primary:       #5d3b75 !default;
 $secondary:     #8392AB !default;
-$info:          #17c1e8 !default;
+$info:          #5d3b75 !default;
 $success:       #82d616 !default;
 $warning:       #fbcf33 !default;
 $danger:        #ea0606 !default;
@@ -78,14 +78,14 @@ $theme-colors: (
 
 
 // Gradient colors
-$primary-gradient:            #12546a !default;
-$primary-gradient-state:      #12546a !default;
+$primary-gradient:            #5d3b75 !default;
+$primary-gradient-state:      #5d3b75 !default;
 
 $secondary-gradient:          #627594 !default;
 $secondary-gradient-state:    #A8B8D8 !default;
 
-$info-gradient:               #12546a !default;
-$info-gradient-state:         #12546a !default;
+$info-gradient:               #5d3b75 !default;
+$info-gradient-state:         #5d3b75 !default;
 
 $success-gradient:            #17ad37 !default;
 $success-gradient-state:      #98ec2d !default;
@@ -560,8 +560,8 @@ $text-gradient-bg-clip:       text !default;
 $text-gradient-text-fill:     transparent !default;
 $text-gradient-position:      relative !default;
 $text-gradient-zindex:        1 !default;
-$text-gradient-bg-primary:    linear-gradient(310deg, #12546a, #12546a) !default;
-$text-gradient-bg-info:       linear-gradient(310deg, #12546a, #12546a) !default;
+$text-gradient-bg-primary:    linear-gradient(310deg, #5d3b75, #5d3b75) !default;
+$text-gradient-bg-info:       linear-gradient(310deg, #5d3b75, #5d3b75) !default;
 $text-gradient-bg-success:    linear-gradient(310deg, #17AD37, #C1E823) !default;
 $text-gradient-bg-warning:    linear-gradient(310deg, #F53939, #FBCF33) !default;
 $text-gradient-bg-danger:     linear-gradient(310deg, #D60808, #FF6690) !default;

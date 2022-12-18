@@ -20,15 +20,15 @@
   transition: all 0.3s ease;
   cursor: pointer;
   border: 2px solid;
-  background-color: #12546a;
-  border-color: #12546a;
+  background-color: #5d3b75;
+  border-color: #5d3b75;
   border-radius: 10px;
   line-height: 26px;
   font-size: 14px;
 }
 .upload__btn:hover {
   background-color: unset;
-  color: #12546a;
+  color: #5d3b75;
   transition: all 0.3s ease;
 }
 .upload__btn-box {

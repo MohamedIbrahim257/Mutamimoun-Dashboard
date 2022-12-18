@@ -1,24 +1,26 @@
 
 var firebaseConfig = {
-    apiKey: "AIzaSyDOne-swdHmSrAvJOxeCMGrpeDNJQ1Di4A",
-    authDomain: "mutamimon-c1e68.firebaseapp.com",
-    databaseURL: "https://mutamimon-c1e68-default-rtdb.firebaseio.com",
-    projectId: "mutamimon-c1e68",
-    storageBucket: "mutamimon-c1e68.appspot.com",
-    messagingSenderId: "7245330178",
-    appId: "1:7245330178:web:3a792f8f0b3215f915b41b",
-    measurementId: "G-JVCXL6GDES"
+    apiKey: "AIzaSyCO34YMDe_17kdaXk1rmEJMjRV33mL_3Ek",
+    authDomain: "valliys.firebaseapp.com",
+    databaseURL: "https://valliys-default-rtdb.firebaseio.com",
+    projectId: "valliys",
+    storageBucket: "valliys.appspot.com",
+    messagingSenderId: "440689896549",
+    appId: "1:440689896549:web:1c7cb8aeb298633d57ea8c",
+    measurementId: "G-DTG8HYXKQK"
 };
 
 firebase.initializeApp(firebaseConfig);
 
 
-let images = []
+let images = [];
+let imagesDetails = [];
+let currImgDetails = [];
 let thePhoto;
 let currImg = [];
 let pdf;
 let adv;
-let projectDetails
+
 
 var messagesRef = firebase.database()
     .ref('Projects');
@@ -54,7 +56,7 @@ function submitForm() {
     if (!name, !category, !status, !images, !desc, !current, !latitude, !longitude, !details, !thePhoto) {
         alert("الرجاء ملئ الخانات الفارغه")
     } else {
-        saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,projectDetails);
+        saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,imagesDetails);
         window.location.reload("")
         alert("تم الاضافه")
     }
@@ -74,7 +76,7 @@ function getInputVal(id) {
 
 // Save message to firebase
 
-function saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,projectDetails) {
+function saveMessage(id, name, category, status, images, desc, price, current, latitude, longitude, details, thePhoto, pdf, adv, advLink ,imagesDetails) {
     //CHECK THAT EVERY VALUE IS NOT A NULL / UNDEFINED
     let d = Date.now();
     firebase.database().ref('Projects/' + d).set({
@@ -83,7 +85,7 @@ function saveMessage(id, name, category, status, images, desc, price, current, l
         name: name,
         category: category,
         status: status,
-        projectDetails : projectDetails || "",
+        imagesDetails:imagesDetails,
         photo: images,
         pdf: pdf || "",
         desc: desc,
@@ -209,10 +211,10 @@ function uploadimageAdv() {
 }
 
 
-function uploadProjectDeatails() {
+function uploadPhotosDetails() {
     var type = "6";
     var storage = firebase.storage();
-    var file = document.getElementById("filesProjectDetails").files[0];
+    var file = document.getElementById("photosDetails").files[0];
     var storageref = storage.ref();
     var thisref = storageref.child(type).child(file.name).put(file);
     thisref.on('state_changed', function (snapshot) {
@@ -224,15 +226,20 @@ function uploadProjectDeatails() {
         // Uploaded completed successfully, now we can get the download URL
         thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
 
-            projectDetails = downloadURL;
-            document.getElementById("projectDetails").src = projectDetails;
-            alert("تم اضافه تفاصيل المشروع");
+            let id = '_' + Math.random().toString(36).substr(2, 9);
+            let obj = {
+                url: downloadURL,
+                id: id
+            }
+            imagesDetails.push(obj);
+            currImgDetails.push(obj);
+            alert("تم اضافه الصوره بنجاح");
 
         });
     });
 
-}
 
+}
 
 
 
@@ -274,11 +281,12 @@ document.getElementById("select").onclick = function () {
 
     var messagesRef = firebase.database()
         .ref('Projects');
+        console.log(messagesRef)
     let arr = [];
     messagesRef.once("value", (snapshot) => {
         snapshot.forEach((element) => {
             console.log(element.val());
-            element.val().name === document.getElementById("name").value ? arr.push(element.val()) : console.log("Bye");
+            element.val().name === document.getElementById("name").value.trim() ? arr.push(element.val()) : console.log("Bye");
 
         });
 
@@ -334,7 +342,7 @@ document.getElementById("select").onclick = function () {
              
              
                 document.getElementById("advPhoto").src = arr[0].adv 
-                document.getElementById("projectDetails").src = arr[0].projectDetails 
+                // document.getElementById("projectDetails").src = arr[0].projectDetails 
         
            
           
@@ -382,6 +390,47 @@ document.getElementById("select").onclick = function () {
                 // Append a line break 
                 container.appendChild(document.createElement("br"));
             }
+
+
+            var containerDetials = document.getElementById("forThatDetails");
+            var forThisDetails = document.getElementById("forThisDetails");
+            for (let y = 0; y < arr[0].imagesDetails.length; y++) {
+
+                var inputDetails = document.createElement("img");
+                inputDetails.src = arr[0].imagesDetails[y].url;
+                inputDetails.id = arr[0].imagesDetails[y].id;
+                forThisDetails.appendChild(inputDetails);
+                var btnDetails = document.createElement("button");
+                btnDetails.id = arr[0].imagesDetails[y].id;
+                btnDetails.name = arr[0].imagesDetails[y].id;
+                btnDetails.innerText = "X";
+                btnDetails.style = "border : none ; width:30px ; height:30px ; font-size : 0.8rem ; color:white; border-radius: 50%;font-weight:bold ; background-color:black ; position:relative; left:30px";
+                inputDetails.style.width = "150px"
+                console.log(arr[0].imagesDetails[y].id);
+                canBasha(btnDetails, arr[0].imagesDetails[y].id)
+                btnDetails.onclick = function () {
+                    let z =0;
+                    if(y === 0 ){
+                        console.log(arr[0].imagesDetails[y].id);
+                        uClickedDetails(arr[0].imagesDetails[y].id,y);
+                    }  else {
+
+                          console.log(y);
+
+                        uClickedDetails(arr[0].imagesDetails[0].id,y);
+
+                    } 
+                }
+                console.log(btnDetails);
+
+                currImgDetails = arr[0].imagesDetails;
+                forThisDetails.appendChild(btnDetails);
+                containerDetials.appendChild(forThisDetails);
+                // Append a line break 
+                containerDetials.appendChild(document.createElement("br"));
+            }
+
+
 
             document.getElementById("latitude").value = arr[0].latitude
             document.getElementById("longitude").value = arr[0].longitude
@@ -458,9 +507,9 @@ document.getElementById("update").onclick = function () {
             thePhoto: document.getElementById("zaPhoto").src,
             details: detol,
             photo: currImg,
+            imagesDetails:currImgDetails,
             pdf: document.getElementById("namepdf").src.length <60 ?  "" : document.getElementById("namepdf").src  ,
             adv: document.getElementById("advPhoto").src.length <60  ? ""  : document.getElementById("advPhoto").src ,
-            projectDetails: document.getElementById("projectDetails").src.length <60  ? ""  : document.getElementById("projectDetails").src ,
             advLink: document.getElementById("advLink").value
         }) 
        
@@ -510,6 +559,26 @@ function canBeh(btn, srcs) {
     }
 
 }
+
+function uClickedDetails(imgIdDetails) {
+
+    const index = currImgDetails.findIndex(o => {
+        return o.id === imgIdDetails
+    });
+    currImgDetails.splice(index, 1)
+    document.getElementById(imgIdDetails).remove();
+    document.getElementById(imgIdDetails).remove();
+
+}
+
+function canBasha(btn, srcs) {
+
+    btn.onclick = function () {
+        uClickedDetails(srcs);
+    }
+
+}
+
 
 
 
